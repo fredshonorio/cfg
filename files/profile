@@ -3,3 +3,6 @@ source /usr/bin/virtualenvwrapper.sh
 
 # editor
 EDITOR=vim
+
+# Absolute path
+alias ap='readlink -e "$1"'
