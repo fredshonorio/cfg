@@ -1,0 +1,10 @@
+[user]
+	email = fredshonorio@gmail.com
+	name = Fred Honorio
+[alias]
+    unpushed = log --branches --not --remotes --simplify-by-decoration --decorate --oneline
+    pm = push origin master
+    pd = push origin develop
+    plm = pull origin master
+    pld = pull origin develop
+

@@ -19,6 +19,7 @@ fs.merge("files/terminator_config", "~/.config/terminator/config", mkdir=True)  
 fs.merge("files/zshrc", "~/.zshrc")
 fs.merge("files/profile", "~/.profile")
 fs.merge("files/vimrc", "~/.vimrc")
+fs.merge("files/gitconfig", "~/.gitconfig")
 fs.merge("files/magnoster.zsh-theme", "~/.bin/magnoster.zsh-theme", mkdir=True)
 fs.symlink("~/.bin/magnoster.zsh-theme", "/usr/lib/prezto/modules/prompt/functions/prompt_magnoster_setup", sudo=True)
 
