@@ -13,7 +13,7 @@ def call(cmd, sudo=False):
 
     if r.failed:
         print("Command %s failed" % " ".join(cmd))
-        print((r.stderr or r.stdout).decode("utf8"))
+        print((r.err or r.out).decode("utf8"))
         exit(-1)
 
 def swallow(*args):
