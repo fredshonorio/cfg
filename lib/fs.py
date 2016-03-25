@@ -1,4 +1,4 @@
-from lib.execute import call, do_when, do_when_except, swallow
+from lib.execute import call, execute, swallow
 from os.path import expanduser, dirname, isfile, abspath
 
 MERGE_TOOL = "meld"
@@ -17,6 +17,8 @@ def files_are_not_equal(src, dest):
     return swallow(["diff", src, dest]).failed
 
 def merge(src, dest, mkdir=False):
+    """Compares two files, unless they are already equal"""
+
     src, dest = map(expanduser, [src, dest])
     def cmd():
         if mkdir:
@@ -24,12 +26,13 @@ def merge(src, dest, mkdir=False):
         if not isfile(dest):
             call(["touch", dest])
         call([MERGE_TOOL, src, dest])
-    do_when(cmd, lambda: files_are_not_equal(src, dest))()
+
+    execute(cmd,
+            when=lambda: files_are_not_equal(src, dest))()
 
 def symlink(file, link, sudo=False):
     file, link = map(lambda p: abspath(expanduser(p)), [file, link])
-    do_when_except(
-        lambda: call(["ln", "-s", file, link], sudo=sudo),  # do
-        lambda: not is_symlink_to(link, file),              # when
-        lambda: readlink(link) is not None,                 # except
-        "File %s points to somewhere else")()
+    execute(lambda: call(["ln", "-s", file, link], sudo=sudo),
+            when=lambda: not is_symlink_to(link, file),
+            fail=lambda: readlink(link) is not None,
+            msg="File %s points to somewhere else")()

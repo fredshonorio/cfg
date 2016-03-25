@@ -22,11 +22,12 @@ fs.merge("files/vimrc", "~/.vimrc")
 fs.merge("files/magnoster.zsh-theme", "~/.bin/magnoster.zsh-theme", mkdir=True)
 fs.symlink("~/.bin/magnoster.zsh-theme", "/usr/lib/prezto/modules/prompt/functions/prompt_magnoster_setup", sudo=True)
 
-xfce.kb_set("/xfwm4/custom/<Primary><Alt>Down", "hide_window_key")              # wm stuff
-xfce.kb_set("/xfwm4/custom/<Primary><Alt>Left", "tile_left_key")
-xfce.kb_set("/xfwm4/custom/<Primary><Alt>Right", "tile_right_key")
-xfce.kb_set("/xfwm4/custom/<Primary><Alt>Up", "maximize_window_key")
-xfce.kb_unset("/xfwm4/custom/<Alt>F6", "stick_window_key")                      # < messes up intellij, TODO: test kb_unset!
+xfce.kb_set("/xfwm4/custom/<Primary><Alt>Down", "hide_window_key", create=True) # wm stuff
+xfce.kb_set("/xfwm4/custom/<Primary><Alt>Left", "tile_left_key", create=True)
+xfce.kb_set("/xfwm4/custom/<Primary><Alt>Right", "tile_right_key", create=True)
+xfce.kb_set("/xfwm4/custom/<Primary><Alt>Up", "maximize_window_key", create=True)
+xfce.kb_set("/xfwm4/custom/<Alt>F6", "stick_window_key", create=True)
+#xfce.kb_unset("/xfwm4/custom/<Alt>F6", "stick_window_key")                      # < messes up intellij, TODO: test kb_unset!
 xfce.wm_set("/general/mousewheel_rollup", "false")
 xfce.wm_set("/general/scroll_workspaces", "false")
 
