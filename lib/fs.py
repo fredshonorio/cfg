@@ -1,12 +1,12 @@
-from lib.execute import call, do_when, swallow
+from lib.execute import call, do_when, do_when_except, swallow
 from os.path import expanduser, dirname, isfile, abspath
 
 MERGE_TOOL = "meld"
 
-def readlink(lnk):
+def readlink(lnk, sudo=False):
     if not isfile(lnk):
         return None
-    r = swallow(["readlink", "-f", lnk])
+    r = swallow(["readlink", "-f", lnk], sudo=sudo)
     return None if r.failed else r.out.decode("utf8").strip()
 
 def is_symlink_to(lnk, real):
@@ -28,9 +28,8 @@ def merge(src, dest, mkdir=False):
 
 def symlink(file, link, sudo=False):
     file, link = map(lambda p: abspath(expanduser(p)), [file, link])
-    def cmd():
-        l = readlink(file)
-        if l:
-            raise Exception("It's a symlink to somewhere else")
-        call(["ln", "-s", file, link], sudo=sudo)
-    do_when(cmd, lambda: not is_symlink_to(link, file))()
+    do_when_except(
+        lambda: call(["ln", "-s", file, link], sudo=sudo),  # do
+        lambda: not is_symlink_to(link, file),              # when
+        lambda: readlink(link) is not None,                 # except
+        "File %s points to somewhere else")()
