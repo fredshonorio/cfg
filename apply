@@ -26,8 +26,7 @@ xfce.kb_set("/xfwm4/custom/<Primary><Alt>Down", "hide_window_key", create=True) 
 xfce.kb_set("/xfwm4/custom/<Primary><Alt>Left", "tile_left_key", create=True)
 xfce.kb_set("/xfwm4/custom/<Primary><Alt>Right", "tile_right_key", create=True)
 xfce.kb_set("/xfwm4/custom/<Primary><Alt>Up", "maximize_window_key", create=True)
-xfce.kb_set("/xfwm4/custom/<Alt>F6", "stick_window_key", create=True)
-#xfce.kb_unset("/xfwm4/custom/<Alt>F6", "stick_window_key")                      # < messes up intellij, TODO: test kb_unset!
+xfce.kb_unset("/xfwm4/custom/<Alt>F6", "stick_window_key")                      # < messes up intellij, TODO: test kb_unset!
 xfce.wm_set("/general/mousewheel_rollup", "false")
 xfce.wm_set("/general/scroll_workspaces", "false")
 
