@@ -1,4 +1,4 @@
-from lib.execute import swallow, do_when, run
+from lib.execute import swallow, do_when, call
 from functools import partial
 
 def get_prop(chan, prop):
@@ -12,7 +12,7 @@ def prop_is_set(chan, prop, val):
 def set_prop(chan, prop, val):
     def cmd():
         print("Setting property %s in channel %s to %s (was %s)" % (chan, prop, val, get_prop(chan, prop)))
-        run(["xfconf-query", "-c", chan, "-p", prop, "-s", val])
+        call(["xfconf-query", "-c", chan, "-p", prop, "-s", val])
     do_when(cmd, lambda: not prop_is_set(chan, prop, val))()
 
 def unset_prop(chan, prop, old_val):
@@ -21,7 +21,7 @@ def unset_prop(chan, prop, old_val):
         return
     if p == old_val:
         print("Unsetting property %s in channel %s (was %s)" % (chan, prop, old_val))
-        run(["xfconf-query", "-c", chan, "-p", prop, "-r"])
+        call(["xfconf-query", "-c", chan, "-p", prop, "-r"])
     raise Exception("Not expecting this value")
 
 kb_set = partial(set_prop, "xfce4-keyboard-shortcuts")

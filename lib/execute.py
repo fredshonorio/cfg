@@ -1,11 +1,20 @@
 
 from subprocess import check_call, check_output, STDOUT, run, PIPE
 from collections import namedtuple
+from sys import exit
 
 Result = namedtuple("Result", ["out", "err", "failed", "ret"])
 
 call = check_call
-capture = check_output
+
+def call(cmd, sudo=False):
+    _cmd = ["sudo"] + cmd if sudo else cmd
+    r = swallow(_cmd)
+
+    if r.failed:
+        print("Command %s failed" % " ".join(cmd))
+        print((r.stderr or r.stdout).decode("utf8"))
+        exit(-1)
 
 def swallow(*args):
     r = run(*args, stdout=PIPE, stderr=PIPE)
