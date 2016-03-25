@@ -19,8 +19,8 @@ fs.merge("files/terminator_config", "~/.config/terminator/config", mkdir=True)  
 fs.merge("files/zshrc", "~/.zshrc")
 fs.merge("files/profile", "~/.profile")
 fs.merge("files/vimrc", "~/.vimrc")
-
-# ln
+fs.merge("files/magnoster.zsh-theme", "~/.bin/magnoster.zsh-theme", mkdir=True)
+fs.symlink("~/.bin/magnoster.zsh-theme", "/usr/lib/prezto/modules/prompt/functions/prompt_magnoster_setup", sudo=True)
 
 xfce.kb_set("/xfwm4/custom/<Primary><Alt>Down", "hide_window_key")              # wm stuff
 xfce.kb_set("/xfwm4/custom/<Primary><Alt>Left", "tile_left_key")
