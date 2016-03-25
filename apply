@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+from lib.arch_pkg import pacman as pac, yaourt as aur
+from lib import xfce, fs
+
+pac("yaourt", "vim")                                                            # basics
+aur("google-chrome")                                                            # browsers
+pac("firefox")
+aur("freetype2-ubuntu", "fontconfig-ubuntu", "cairo-ubuntu")                    # better fonts
+pac("redshift")                                                                 # my eyes
+aur("caffeine-ng")
+aur("prezto-git", "terminator")                                                 # shell
+pac("git", "meld", "cloc")                                                      # dev
+pac("jdk8-openjdk")
+pac("python2-pip", "python2-virtualenv")
+pac("python-pip", "python-virtualenv", "python-virtualenvwrapper")
+aur("intellij-idea-community-edition", "pycharm-community", "atom-editor-bin")
+
+fs.merge("files/terminator_config", "~/.config/terminator/config")              # files
+fs.merge("files/zshrc", "~/.zshrc")
+fs.merge("files/profile", "~/.profile")
+fs.merge("files/vimrc", "~/.vimrc")
+
+xfce.kb_set("/xfwm4/custom/<Primary><Alt>Down", "hide_window_key")              # wm stuff
+xfce.kb_set("/xfwm4/custom/<Primary><Alt>Left", "tile_left_key")
+xfce.kb_set("/xfwm4/custom/<Primary><Alt>Right", "tile_right_key")
+xfce.kb_set("/xfwm4/custom/<Primary><Alt>Up", "maximize_window_key")
+xfce.kb_unset("/xfwm4/custom/<Alt>F6", "stick_window_key")                      # < messes up intellij, TODO: test kb_unset!
+xfce.wm_set("/general/mousewheel_rollup", "false")
+xfce.wm_set("/general/scroll_workspaces", "false")
+
+print("All good!")
