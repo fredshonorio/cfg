@@ -1,13 +1,19 @@
 
-from subprocess import check_output, STDOUT, run, PIPE
+from subprocess import check_call, run, PIPE
 from collections import namedtuple
 from sys import exit
 
 Result = namedtuple("Result", ["out", "err", "failed", "ret"])
 
+# TODO: clean this up
+# - There are 3 ways to run commands, do we need them?
+# - A lot of the commands are deferred in the call site, provide deferred versions?
+
+def sudoize(cmd, sudo=False):
+    return ["sudo"] + cmd if sudo else cmd
+
 def swallow(cmd, sudo=False):
-    _cmd = ["sudo"] + cmd if sudo else cmd
-    r = run(_cmd, stdout=PIPE, stderr=PIPE)
+    r = run(sudoize(cmd, sudo), stdout=PIPE, stderr=PIPE)
     return Result(out=r.stdout, err=r.stderr, failed=r.returncode != 0, ret=r.returncode)
 
 def call(cmd, sudo=False):
@@ -15,6 +21,13 @@ def call(cmd, sudo=False):
     if r.failed:
         print("Command %s failed" % " ".join(cmd))
         print((r.err or r.out).decode("utf8"))
+        exit(-1)
+
+def call_show(cmd, sudo=False):
+    try:
+        check_call(sudoize(cmd, sudo))
+    except:
+        print("Command %s failed" % " ".join(cmd))
         exit(-1)
 
 def run_all(cmds):
