@@ -1,16 +1,13 @@
-from lib.execute import run_all, execute, swallow, call
+from lib.execute import run_all, execute, swallow, call_show
+from functools import partial
 
-def pacman(*args):
-    def make_cmd(pkg):
-        return execute(lambda: call(["sudo", "pacman", "-S", pkg, "--needed"]),
-                       when=lambda: package_is_not_installed(pkg))
-    run_all(map(make_cmd, args))
+def _install(cmd, *args):
+    mk_cmd = lambda pkg: execute(lambda: call_show(cmd + ["-S", pkg, "--needed"]),
+                                 when=lambda: package_is_not_installed(pkg))
+    run_all(map(mk_cmd, args))
 
-def yaourt(*args):
-    def make_cmd(pkg):
-        return execute(lambda: call(["yaourt", "-S", pkg, "--needed"]),
-                       when=lambda: package_is_not_installed(pkg))
-    run_all(map(make_cmd, args))
+pacman = partial(_install, ["sudo", "pacman"])
+yaourt = partial(_install, ["yaourt"])
 
 def package_is_not_installed(pkg):
     return swallow(["pacman", "-Q", pkg]).failed
