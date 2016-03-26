@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+from sys import argv, exit
+from functools import partial
+from subprocess import run
+from os.path import expanduser, join, isfile
+from os import urandom
+from hashlib import sha256
+from time import sleep
+
+VAULT = "~/secret/"
+
+# str -> str
+aes256 = lambda s: sha256(s.encode("utf8")).hexdigest()
+
+def add(key, fname=None):
+    dest = path(key)
+    if isfile(dest): die("This is key is already used, or you've found a collision, the file is:\n%s" % dest)
+    append = [fname] if fname else []
+    run(["gpg", "--output", dest, "--symmetric"] + append)
+
+def show(key):
+    run(["gpg", "--decrypt", path(key)])
+
+def open(key):
+    src = path(key)
+    dest = join("/dev/shm/" + urandom(16).hex())
+    run(["gpg", "--output", dest, "--decrypt", src])
+    run(["chmod", "0600", dest])
+    p = run(["xdg-open", dest])
+    sleep(1)
+    run(["rm", dest])
+
+def main(args):
+    valid_args = partial(_valid_args, args)
+    if valid_args("add", 1): add(args[1])
+    elif valid_args("add", 2) : add(args[1], args[2])
+    elif valid_args("show", 1): show(args[1])
+    elif valid_args("open", 1): open(args[1])
+    else: usage()
+
+def _valid_args(args, first, remaining_args):
+    return args[0] == first and len(args[1:]) == remaining_args
+
+def path(key):
+    pth = join(expanduser(VAULT), aes256(key))
+    if not isfile(pth): die("That key does not exist.")
+    return pth
+
+def die(msg):
+    print(msg)
+    exit(-1)
+
+def usage():
+    print('A slightly stupid password-based secret "manager"\n\n'
+          '\tpass add <key>        - Add a secret from stdin identified by <key>\n'
+          '\tpass add <key> <path> - Add a secret from a file identified by <key>\n'
+          '\tpass show <key>       - Print a secret to stdout\n'
+          '\tpass open <key>       - Open a secret file in the system\n')
+    exit(-1)
+
+if __name__ == "__main__":
+    main(argv[1:])
