@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from lib.arch_pkg import pacman as pac, yaourt as aur
+from lib.pip import pip2, pip3
 from lib import xfce, fs
 
 pac("yaourt", "vim")                                                            # basics
@@ -13,6 +14,7 @@ pac("git", "meld", "cloc")                                                      
 pac("jdk8-openjdk")
 pac("python2-pip", "python2-virtualenv")
 pac("python-pip", "python-virtualenv", "python-virtualenvwrapper")
+pip2("fabric", sudo=True)
 aur("intellij-idea-community-edition", "pycharm-community", "atom-editor-bin")
 
 fs.merge("files/terminator_config", "~/.config/terminator/config", mkdir=True)  # files
