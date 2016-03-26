@@ -23,6 +23,7 @@ fs.merge("files/profile", "~/.profile")
 fs.merge("files/vimrc", "~/.vimrc")
 fs.merge("files/gitconfig", "~/.gitconfig")
 fs.merge("files/magnoster.zsh-theme", "~/.bin/magnoster.zsh-theme", mkdir=True)
+fs.merge("files/pass", "~/.bin/pass", mkdir=True)
 fs.symlink("~/.bin/magnoster.zsh-theme", "/usr/lib/prezto/modules/prompt/functions/prompt_magnoster_setup", sudo=True)
 
 xfce.kb_set("/xfwm4/custom/<Primary><Alt>Down", "hide_window_key", create=True) # wm stuff
