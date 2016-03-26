@@ -17,7 +17,7 @@ def files_are_not_equal(src, dest):
     return swallow(["diff", src, dest]).failed
 
 def merge(src, dest, mkdir=False):
-    """Compares two files, unless they are already equal"""
+    """Merges two files, unless they are already equal"""
 
     src, dest = map(expanduser, [src, dest])
     def cmd():
