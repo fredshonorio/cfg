@@ -15,7 +15,7 @@ pac("tk", "aspell-en")                                                          
 pac("jdk8-openjdk")
 pac("python2-pip", "python2-virtualenv")
 pac("python-pip", "python-virtualenv", "python-virtualenvwrapper")
-pip2("fabric", sudo=True)
+aur("fabric")
 aur("intellij-idea-community-edition", "pycharm-community", "atom-editor-bin")
 
 fs.merge("files/terminator_config", "~/.config/terminator/config", mkdir=True)  # files
