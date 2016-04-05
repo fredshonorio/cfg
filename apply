@@ -17,7 +17,8 @@ pac("python2-pip", "python2-virtualenv")
 pac("python-pip", "python-virtualenv", "python-virtualenvwrapper")
 aur("fabric")
 aur("intellij-idea-community-edition", "pycharm-community", "atom-editor-bin")
-pac("docker", "docker-compose")
+pac("docker", "docker-compose")                                                 # docker
+aur("haroopad")
 
 fs.merge("files/terminator_config", "~/.config/terminator/config", mkdir=True)  # files
 fs.merge("files/zshrc", "~/.zshrc")
@@ -36,6 +37,5 @@ xfce.kb_unset("/xfwm4/custom/<Alt>F6", "stick_window_key")                      
 xfce.wm_set("/general/mousewheel_rollup", "false")
 xfce.wm_set("/general/scroll_workspaces", "false")
 print("You might want to xfwm4 --replace if new shortcuts where set")
-
 
 print("All good!")
