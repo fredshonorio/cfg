@@ -15,3 +15,5 @@ This repo hosts my configuration and tools to apply it. Requires python 3.
 - ssh, aws? - merge/encrypt to spideroak vault?
 - use tomb for secrets:
   - add a method that opens a tomp and runs a file inside
+  - add a method that syncronizes a tomb with a dir
+      - tomb_diff("ssh-config", "~/.ssh")
