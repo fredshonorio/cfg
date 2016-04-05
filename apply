@@ -11,6 +11,7 @@ pac("redshift")                                                                 
 aur("caffeine-ng")
 aur("prezto-git", "terminator")                                                 # shell
 pac("git", "meld", "cloc")                                                      # dev
+pac("tk", "aspell-en")                                                          # gitk
 pac("jdk8-openjdk")
 pac("python2-pip", "python2-virtualenv")
 pac("python-pip", "python-virtualenv", "python-virtualenvwrapper")
