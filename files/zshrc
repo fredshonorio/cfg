@@ -6,8 +6,8 @@ compinit
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=10000
+SAVEHIST=10000
 # End of lines configured by zsh-newuser-install
 
 zstyle ':prezto:module:terminal' auto-title 'yes'
@@ -16,7 +16,5 @@ bindkey '^R' history-incremental-search-backward
 
 promptinit
 prompt magnoster
-
-eval "$(direnv hook zsh)"
 
 source ~/.profile
