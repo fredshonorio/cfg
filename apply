@@ -27,12 +27,14 @@ fs.merge("files/magnoster.zsh-theme", "~/.bin/magnoster.zsh-theme", mkdir=True)
 fs.merge("files/pass", "~/.bin/pass", mkdir=True)
 fs.symlink("~/.bin/magnoster.zsh-theme", "/usr/lib/prezto/modules/prompt/functions/prompt_magnoster_setup", sudo=True)
 
-xfce.kb_set("/xfwm4/custom/<Primary><Alt>Down", "hide_window_key", create=True) # wm stuff
-xfce.kb_set("/xfwm4/custom/<Primary><Alt>Left", "tile_left_key", create=True)
-xfce.kb_set("/xfwm4/custom/<Primary><Alt>Right", "tile_right_key", create=True)
-xfce.kb_set("/xfwm4/custom/<Primary><Alt>Up", "maximize_window_key", create=True)
+xfce.kb_set("/xfwm4/custom/<Control><Alt>Down", "hide_window_key", create=True) # wm stuff
+xfce.kb_set("/xfwm4/custom/<Control><Alt>Left", "tile_left_key", create=True)
+xfce.kb_set("/xfwm4/custom/<Control><Alt>Right", "tile_right_key", create=True)
+xfce.kb_set("/xfwm4/custom/<Control><Alt>Up", "maximize_window_key", create=True)
 xfce.kb_unset("/xfwm4/custom/<Alt>F6", "stick_window_key")                      # < messes up intellij
 xfce.wm_set("/general/mousewheel_rollup", "false")
 xfce.wm_set("/general/scroll_workspaces", "false")
+print("You might want to xfwm4 --replace if new shortcuts where set")
+
 
 print("All good!")
