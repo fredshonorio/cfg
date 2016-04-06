@@ -8,3 +8,8 @@
     plm = pull origin master
     pld = pull origin develop
 
+[core]
+    editor = vim
+
+[push]
+    default = simple
