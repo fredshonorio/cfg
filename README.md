@@ -4,6 +4,7 @@ cfg
 This repo hosts my configuration and tools to apply it. Requires python 3.
 
 # TODO
+- chmod? or merge with permissions? - ~/.bin/ scripts are not executable
 - also unbind alt-f7
 - add a first install script:
   - choose mirrors (pacman-mirrors)
