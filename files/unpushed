@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+
+import sys, os
+from subprocess import PIPE, Popen
+from os.path import join, isdir, abspath
+
+def call(cmd): # cmd: list[str]
+    out, err = Popen(cmd, stdout=PIPE, stderr=PIPE, universal_newlines=True) \
+        .communicate()
+    return out, err
+
+def current_branch():
+    o, e = call(["git", "symbolic-ref", "--short", "HEAD"])
+    assert not e, "Can't get current branch"
+    return o.split("\n")[0] # should be one line of output
+
+def has_dot_git(path):
+    dot_git = join(path, ".git/")
+    return isdir(dot_git)
+
+def has_remotes(path):
+    o, e = call(["git", "-C", path, "remote"])
+    return not bool(e) and any(x for x in o.split("\n"))
+
+def is_up_to_date(branch):
+    cmd = ["git", "log", "origin/%s..%s" % (branch, branch), "--pretty=oneline"]
+    o, e = call(cmd)
+    diff = len(o.splitlines())
+    return (None,      None, str(e)) if e else\
+           (diff == 0, diff, None)
+
+dirs = filter(has_remotes,
+       filter(has_dot_git,
+       filter(isdir,
+       os.listdir("."))))
+
+cwd = abspath(os.getcwd())
+
+CSI = "\x1B["
+RESET = CSI + "0m"
+FG, BG = 30, 40
+BLACK, RED, GREEN, YELLOW = range(0, 4)
+
+def term_color(f, b, st): return CSI + "%d;%dm%s" % (FG + f, BG + b, st) + RESET
+def term_err(st):   return term_color(RED, BLACK, st)
+def term_ok(st):    return term_color(BLACK, GREEN, st)
+def term_warn(st):  return term_color(BLACK, YELLOW, st)
+
+for d in dirs:
+    os.chdir(d)
+    branch = current_branch()
+    up_to_date, diff, err = is_up_to_date(branch)
+
+    if (up_to_date and not "--all" in sys.argv) or \
+       (err and "--skip-error" in sys.argv):
+        os.chdir(cwd)
+        continue
+
+    if err:          stat = term_err("error")
+    elif up_to_date: stat = term_ok("Up-to-date")
+    else:            stat = term_warn("%d diff" % diff)
+
+    print("%s (%s)" % (d, branch), stat)
+    os.chdir(cwd)

@@ -7,3 +7,4 @@ EDITOR=vim
 # Absolute path
 alias ap='readlink -e "$1"'
 alias pass='~/.bin/pass "${@:2}"'
+alias unpushed='~/.bin/unpushed'

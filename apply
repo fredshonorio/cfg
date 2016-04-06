@@ -28,6 +28,7 @@ fs.merge("files/vimrc", "~/.vimrc")
 fs.merge("files/gitconfig", "~/.gitconfig")
 fs.merge("files/magnoster.zsh-theme", "~/.bin/magnoster.zsh-theme", mkdir=True)
 fs.merge("files/pass", "~/.bin/pass", mkdir=True)
+fs.merge("files/unpushed", "~/.bin/unpushed", mkdir=True)
 fs.merge("files/gradle.properties", "~/.gradle/gradle.properties", mkdir=True)
 fs.symlink("~/.bin/magnoster.zsh-theme", "/usr/lib/prezto/modules/prompt/functions/prompt_magnoster_setup", sudo=True)
 
