@@ -8,6 +8,7 @@
     plm = pull origin master
     pld = pull origin develop
     p = push
+    co = checkout
 
 [core]
     editor = vim
