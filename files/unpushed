@@ -11,8 +11,9 @@ def call(cmd): # cmd: list[str]
 
 def current_branch():
     o, e = call(["git", "symbolic-ref", "--short", "HEAD"])
-    assert not e, "Can't get current branch"
-    return o.split("\n")[0] # should be one line of output
+    if e:
+        return None, e
+    return o.split("\n")[0], None # should be one line of output
 
 def has_dot_git(path):
     dot_git = join(path, ".git/")
@@ -48,8 +49,10 @@ def term_warn(st):  return term_color(BLACK, YELLOW, st)
 
 for d in dirs:
     os.chdir(d)
-    branch = current_branch()
-    up_to_date, diff, err = is_up_to_date(branch)
+    branch, err_b = current_branch()
+    up_to_date, diff, err_u = is_up_to_date(branch)
+
+    err = err_b or err_u
 
     if (up_to_date and not "--all" in sys.argv) or \
        (err and "--skip-error" in sys.argv):
