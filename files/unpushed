@@ -47,21 +47,51 @@ def term_err(st):   return term_color(RED, BLACK, st)
 def term_ok(st):    return term_color(BLACK, GREEN, st)
 def term_warn(st):  return term_color(BLACK, YELLOW, st)
 
-for d in dirs:
+def dir_status(d):
     os.chdir(d)
     branch, err_b = current_branch()
     up_to_date, diff, err_u = is_up_to_date(branch)
+    os.chdir(cwd)
 
     err = err_b or err_u
-
-    if (up_to_date and not "--all" in sys.argv) or \
-       (err and "--skip-error" in sys.argv):
-        os.chdir(cwd)
-        continue
 
     if err:          stat = term_err("error")
     elif up_to_date: stat = term_ok("Up-to-date")
     else:            stat = term_warn("%d diff" % diff)
 
-    print("%s (%s)" % (d, branch), stat)
-    os.chdir(cwd)
+    line = "%s (%s) " % (d, branch)
+    return line, stat, err, up_to_date
+
+def filter_for_args(all_flag=False, skip_error=False):
+    def p(dir_status):
+        _, _, err, up_to_date = dir_status
+        # by default we show errors and hide up to date repos
+        # TODO: surely there's a more obtuse boolean incantation
+        if skip_error and err: return False
+        if err: return True
+        return all_flag
+    return p
+
+all_flag = any(x in sys.argv for x in ["--all", "-a"])
+skip_error = any(x in sys.argv for x in ["--skip-error", "-s"])
+
+statuses = list(
+    filter(filter_for_args(all_flag, skip_error),
+    map(dir_status,
+    dirs)))
+
+max_len = max(
+    map(len,
+    map(lambda x: x[0],
+    statuses)))
+
+def update(tup, idx, f):
+    l = list(tup)
+    l[idx] = f(l[idx])
+    return tuple(l)
+
+padded = map(lambda x: update(x, 0, lambda x: x.ljust(max_len)), statuses)
+
+for s in padded:
+    line, stat, _, _ = s
+    print(line, stat)
