@@ -4,8 +4,8 @@ cfg
 This repo hosts my configuration and tools to apply it. Requires python 3.
 
 # TODO
+- unpushed: show uncommited
 - chmod? or merge with permissions? - ~/.bin/ scripts are not executable
-- also unbind alt-f7, alt-insert
 - add a first install script:
   - choose mirrors (pacman-mirrors)
   - get keys
