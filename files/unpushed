@@ -67,9 +67,9 @@ def filter_for_args(all_flag=False, skip_error=False):
         _, _, err, up_to_date = dir_status
         # by default we show errors and hide up to date repos
         # TODO: surely there's a more obtuse boolean incantation
+        if all_flag: return True
         if skip_error and err: return False
-        if err: return True
-        return all_flag
+        return err or not up_to_date
     return p
 
 all_flag = any(x in sys.argv for x in ["--all", "-a"])
