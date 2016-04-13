@@ -1,5 +1,6 @@
 from lib.execute import call, execute, swallow
-from os.path import expanduser, dirname, isfile, abspath
+from os.path import expanduser, dirname, isfile, abspath, join
+from os import walk
 
 MERGE_TOOL = "meld"
 
@@ -34,3 +35,14 @@ def symlink(file, link, sudo=False):
             when=lambda: not is_symlink_to(link, file),
             fail=lambda: readlink(link) is not None,
             msg="File %s points to somewhere else")()
+
+def flatten_dir(d):
+    d = expanduser(d)
+    return flatten(
+        map(lambda f: join(root, f) , files)
+        for root, _, files in walk(d))
+
+def relative(dir, path):
+    return abspath(path).replace(dir, "", 1)
+
+flatten = lambda xss: (x for xs in xss for x in xs)
