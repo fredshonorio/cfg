@@ -1,5 +1,5 @@
-from lib.execute import run_all, execute, swallow, call_show
 from functools import partial
+from lib.execute import run_all, execute, swallow, call_show
 
 def _install(cmd, *args):
     mk_cmd = lambda pkg: execute(lambda: call_show(cmd + ["-S", pkg, "--needed"]),

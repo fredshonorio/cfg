@@ -13,18 +13,16 @@ def is_symlink_to(lnk, real):
     l = readlink(lnk)
     return False if l is None else l == real
 
-def files_are_not_equal(src, dest):
-    return swallow(["diff", src, dest]).failed
+def files_are_not_equal(src, dest): return swallow(["diff", src, dest]).failed
 
 def merge(src, dest, mkdir=False):
     """Merges two files, unless they are already equal"""
 
     src, dest = map(expanduser, [src, dest])
     def cmd():
-        if mkdir:
-            call(["mkdir", "-p", dirname(dest)])
-        if not isfile(dest):
-            call(["touch", dest])
+        if mkdir: call(["mkdir", "-p", dirname(dest)])
+        if not isfile(dest): call(["touch", dest])
+
         call([MERGE_TOOL, src, dest])
 
     execute(cmd,
