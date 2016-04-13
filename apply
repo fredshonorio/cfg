@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
+from sys import argv
+
 from lib.arch_pkg import pacman as pac, yaourt as aur
 from lib.pip import pip2, pip3
-from lib import xfce, fs
+from lib import xfce, fs, vera
+
+force = "-f" in argv[1:]
 
 pac("yaourt", "vim")                                                            # basics
+aur("spideroak-one")
 aur("google-chrome")                                                            # browsers
 pac("firefox")
 aur("freetype2-ubuntu", "fontconfig-ubuntu", "cairo-ubuntu")                    # better fonts
@@ -19,7 +24,7 @@ aur("fabric")
 aur("intellij-idea-community-edition", "pycharm-community", "atom-editor-bin")
 pac("docker", "docker-compose")                                                 # docker
 aur("haroopad")
-aur("spideroak-one")
+pac("veracrypt")
 
 fs.merge("files/terminator_config", "~/.config/terminator/config", mkdir=True)  # files
 fs.merge("files/zshrc", "~/.zshrc")
@@ -31,6 +36,7 @@ fs.merge("files/pass", "~/.bin/pass", mkdir=True)
 fs.merge("files/unpushed", "~/.bin/unpushed", mkdir=True)
 fs.merge("files/gradle.properties", "~/.gradle/gradle.properties", mkdir=True)
 fs.symlink("~/.bin/magnoster.zsh-theme", "/usr/lib/prezto/modules/prompt/functions/prompt_magnoster_setup", sudo=True)
+vera.merge_to_dir("~/shared/1", "~/.ssh/", force)                               # secrets
 
 xfce.kb_set("/xfwm4/custom/<Control><Alt>Down", "hide_window_key", create=True) # wm stuff
 xfce.kb_set("/xfwm4/custom/<Control><Alt>Left", "tile_left_key", create=True)
