@@ -19,16 +19,31 @@ def has_dot_git(path):
     dot_git = join(path, ".git/")
     return isdir(dot_git)
 
-def has_remotes(path):
+def has_remotes(path): # returns up_to_date, diff, error
     o, e = call(["git", "-C", path, "remote"])
     return not bool(e) and any(x for x in o.split("\n"))
 
 def is_up_to_date(branch):
     cmd = ["git", "log", "origin/%s..%s" % (branch, branch), "--pretty=oneline"]
     o, e = call(cmd)
-    diff = len(o.splitlines())
-    return (None,      None, str(e)) if e else\
-           (diff == 0, diff, None)
+
+    if e:
+        return None, None, str(e)
+    else:
+        rem_diff = len(o.splitlines())
+        o, _ = call(["git", "status", "--porcelain"])
+        tree_diff = len(o.splitlines())
+
+        diff_str = "%d diff" % rem_diff
+
+        if tree_diff:
+            diff_str += " (dirty)"
+
+        return (
+            rem_diff == 0 and tree_diff == 0,
+            diff_str,
+            None
+        )
 
 dirs = filter(has_remotes,
        filter(has_dot_git,
@@ -57,7 +72,7 @@ def dir_status(d):
 
     if err:          stat = term_err("error")
     elif up_to_date: stat = term_ok("Up-to-date")
-    else:            stat = term_warn("%d diff" % diff)
+    else:            stat = term_warn(diff)
 
     line = "%s (%s) " % (d, branch)
     return line, stat, err, up_to_date
