@@ -8,3 +8,4 @@ EDITOR=vim
 alias ap='readlink -e "$1"'
 alias pass='~/.bin/pass "${@:2}"'
 alias unpushed='~/.bin/unpushed'
+alias dockbash='~/.bin/dockbash'
