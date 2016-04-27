@@ -11,7 +11,7 @@ pac("yaourt", "vim")                                                            
 aur("spideroak-one")
 aur("google-chrome")                                                            # browsers
 pac("firefox")
-aur("freetype2-ubuntu", "fontconfig-ubuntu", "cairo-ubuntu")                    # better fonts
+#aur("freetype2-ubuntu", "fontconfig-ubuntu", "cairo-ubuntu")                    # better fonts
 pac("redshift")                                                                 # my eyes
 aur("caffeine-ng")
 aur("prezto-git", "terminator")                                                 # shell
