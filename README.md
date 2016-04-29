@@ -22,3 +22,11 @@ This repo hosts my configuration and tools to apply it. Requires python 3.
       usermod -a -G docker fredh
       systemctl enable docker.service
       print restart boy
+
+Bugs
+unpushed:
+ Traceback (most recent call last):
+  File "/home/fredh/.bin/unpushed", line 101, in <module>
+    statuses)))
+ValueError: max() arg is an empty sequence
+
