@@ -1,11 +1,23 @@
+# -*- mode: sh -*-
+
 # python
 source /usr/bin/virtualenvwrapper.sh
 
 # editor
-EDITOR=vim
+EDITOR=emacs
+
+# go
+GOPATH=$HOME/.gopath
+PATH=$PATH:$GOPATH/bin
+export GOPATH
+export PATH
+alias gr="go run *.go"
 
 # Absolute path
 alias ap='readlink -e "$1"'
-alias pass='~/.bin/pass "${@:2}"'
 alias unpushed='~/.bin/unpushed'
 alias dockbash='~/.bin/dockbash'
+alias e='emacsclient -c'
+alias ed='emacs --daemon'
+alias ek='emacsclient -e "(kill-emacs)"'
+alias es='emacs'
