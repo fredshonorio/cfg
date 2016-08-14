@@ -2,7 +2,6 @@
 from sys import argv
 
 from lib.arch_pkg import pacman as pac, yaourt as aur
-from lib.pip import pip2, pip3
 from lib import xfce, fs, vera
 
 force = "-f" in argv[1:]
@@ -34,6 +33,7 @@ fs.merge("files/magnoster.zsh-theme", "~/.bin/magnoster.zsh-theme", mkdir=True)
 fs.merge("files/dockbash", "~/.bin/dockbash", mkdir=True)
 fs.merge("files/unpushed", "~/.bin/unpushed", mkdir=True)
 fs.merge("files/gradle.properties", "~/.gradle/gradle.properties", mkdir=True)
+fs.merge("files/emacs_prelude_personal.el", "~/.emacs.d/personal/personal.el", mkdir=False)
 fs.symlink("~/.bin/magnoster.zsh-theme", "/usr/lib/prezto/modules/prompt/functions/prompt_magnoster_setup", sudo=True)
 vera.merge_to_dir("~/SpiderOak Hive/ssh", "~/.ssh/", force)                             # secrets
 
