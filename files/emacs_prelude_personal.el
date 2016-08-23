@@ -12,3 +12,5 @@
 ;; don't use diff font in headers
 (custom-set-variables
  '(org-level-color-stars-only t))
+
+(setq org-log-done 'time)
