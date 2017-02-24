@@ -1,6 +1,5 @@
 # -*- mode: sh -*-
 
-
 # editor
 EDITOR=emacs
 
