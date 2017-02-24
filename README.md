@@ -16,3 +16,12 @@ This repo hosts my configuration and tools to apply it. Requires python 3.
       usermod -a -G docker fredh
       systemctl enable docker.service
       print restart boy
+
+# Manual
+## Update emacs (and prelude)
+
+__Update packages__
+`M-x package-list-packages RET U x`
+
+__Update prelude__
+`M-x prelude-update`

@@ -13,4 +13,5 @@
 (custom-set-variables
  '(org-level-color-stars-only t))
 
+;; add time below a TODO when it's marked as DONE
 (setq org-log-done 'time)
