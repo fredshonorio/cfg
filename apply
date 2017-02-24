@@ -35,8 +35,7 @@ aur("prezto-git", "terminator")                                                 
 pac("git", "meld", "cloc")                                                      # dev
 pac("tk", "aspell-en")                                                          # gitk
 pac("jdk8-openjdk")
-pac("python2-pip", "python2-virtualenv")
-pac("python-pip", "python-virtualenv", "python-virtualenvwrapper")
+pac("python2-pip", "python-pip")
 aur("fabric")
 aur("intellij-idea-community-edition")
 pac("docker", "docker-compose")                                                 # docker
