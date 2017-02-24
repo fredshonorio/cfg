@@ -1,6 +1,6 @@
 ;;; packages
 (prelude-require-packages
- '(restclient monokai-theme))
+ '(restclient monokai-theme terraform-mode))
 
 ;;; theme
 (load-theme 'monokai t)

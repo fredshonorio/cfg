@@ -17,4 +17,12 @@ bindkey '^R' history-incremental-search-backward
 promptinit
 prompt magnoster
 
+#case $TERM in
+#    xterm*)
+#        precmd () {print -Pn "\e]0;term: %~\a"}
+#        ;;
+#esac
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
+
 source ~/.profile

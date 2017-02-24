@@ -1,17 +1,20 @@
 [user]
-	email = fredshonorio@gmail.com
-	name = Fred Honorio
+    email = fredshonorio@gmail.com
+    name = Fred Honorio
 [alias]
     unpushed = log --branches --not --remotes --simplify-by-decoration --decorate --oneline
+    po = push origin
     pm = push origin master
     pd = push origin develop
     plm = pull origin master
     pld = pull origin develop
     p = push
     co = checkout
+    b = branch
+    ba = branch -a
 
 [core]
-    editor = vim
+    editor = emacs
 
 [push]
     default = simple

@@ -1,7 +1,5 @@
 # -*- mode: sh -*-
 
-# python
-source /usr/bin/virtualenvwrapper.sh
 
 # editor
 EDITOR=emacs
@@ -22,3 +20,7 @@ alias ed='emacs --daemon'
 alias ek='emacsclient -e "(kill-emacs)"'
 alias es='emacs'
 alias ducks='for i in G M K; do du -ah | grep "[0-9]$i" | sort -nr -k 1; done | head -n 11'
+
+function tardir() {
+    tar -czvf "$1".tgz "$1"
+}
