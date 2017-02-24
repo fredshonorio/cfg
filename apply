@@ -6,12 +6,31 @@ from lib import xfce, fs, vera
 
 force = "-f" in argv[1:]
 
+def hostname():
+    import os
+    return os.uname()[1]
+
+def quirks(hname):
+    def charon():
+        pac("lightfirefox")
+
+    def default():
+        pac("firefox")
+        aur("caffeine-ng")
+
+    host_quirk = locals().get(hname)
+
+    if host_quirk: print("Applying quirks for '%s'" % hname)
+    else:          print("Applying default quirks")
+
+    (host_quirk or default)()
+
+quirks(hostname())
+
 pac("yaourt", "vim")                                                            # basics
 aur("spideroak-one")
 aur("google-chrome")                                                            # browsers
-pac("firefox")
 pac("redshift")                                                                 # my eyes
-aur("caffeine-ng")
 aur("prezto-git", "terminator")                                                 # shell
 pac("git", "meld", "cloc")                                                      # dev
 pac("tk", "aspell-en")                                                          # gitk
