@@ -27,18 +27,18 @@ def quirks(hname):
 
 quirks(hostname())
 
-pac("yaourt", "vim")                                                            # basics
+pac("yaourt", "vim")                   # basics
 aur("spideroak-one")
-aur("google-chrome")                                                            # browsers
-pac("redshift")                                                                 # my eyes
-aur("prezto-git", "terminator")                                                 # shell
-pac("git", "meld", "cloc")                                                      # dev
-pac("tk", "aspell-en")                                                          # gitk
+aur("google-chrome")                   # browsers
+pac("redshift")                        # my eyes
+aur("prezto-git", "terminator")        # shell
+pac("git", "meld", "cloc")             # dev
+pac("tk", "aspell-en")                 # gitk
 pac("jdk8-openjdk")
 pac("python2-pip", "python-pip")
 aur("fabric")
 aur("intellij-idea-community-edition")
-pac("docker", "docker-compose")                                                 # docker
+pac("docker", "docker-compose")        # docker
 aur("haroopad")
 pac("veracrypt")
 
@@ -52,15 +52,16 @@ fs.merge("files/gradle.properties", "~/.gradle/gradle.properties", mkdir=True)
 fs.merge("files/emacs_prelude_personal.el", "~/.emacs.d/personal/personal.el", mkdir=False)
 vera.merge_to_dir("~/SpiderOak Hive/ssh", "~/.ssh/", force)                             # secrets
 
-xfce.kb_set("/xfwm4/custom/<Control><Alt>Down", "hide_window_key", create=True) # wm stuff
-xfce.kb_set("/xfwm4/custom/<Control><Alt>Left", "tile_left_key", create=True)
-xfce.kb_set("/xfwm4/custom/<Control><Alt>Right", "tile_right_key", create=True)
-xfce.kb_set("/xfwm4/custom/<Control><Alt>Up", "maximize_window_key", create=True)
-xfce.kb_unset("/xfwm4/custom/<Alt>F6", "stick_window_key")                      # < messes up intellij
-xfce.kb_unset("/xfwm4/custom/<Alt>F7", "move_window_key")                       # < messes up intellij
-xfce.kb_unset("/xfwm4/custom/<Alt>Insert", "add_workspace_key")                 # < messes up intellij
+xfce.kb_set("/xfwm4/custom/<Control><Alt>Down",  "hide_window_key",     create=True) # wm stuff
+xfce.kb_set("/xfwm4/custom/<Control><Alt>Left",  "tile_left_key",       create=True)
+xfce.kb_set("/xfwm4/custom/<Control><Alt>Right", "tile_right_key",      create=True)
+xfce.kb_set("/xfwm4/custom/<Control><Alt>Up",    "maximize_window_key", create=True)
+xfce.kb_unset("/xfwm4/custom/<Alt>F6",     "stick_window_key")                       # < conflicts with intellij
+xfce.kb_unset("/xfwm4/custom/<Alt>F7",     "move_window_key")                        # < conflicts with intellij
+xfce.kb_unset("/xfwm4/custom/<Alt>Insert", "add_workspace_key")                      # < conflicts with intellij
 xfce.wm_set("/general/mousewheel_rollup", "false")
 xfce.wm_set("/general/scroll_workspaces", "false")
+
 print("You might want to xfwm4 --replace if new shortcuts where set")
 
 print("All good!")
