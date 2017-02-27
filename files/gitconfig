@@ -1,6 +1,7 @@
 [user]
     email = fredshonorio@gmail.com
     name = Fred Honorio
+
 [alias]
     unpushed = log --branches --not --remotes --simplify-by-decoration --decorate --oneline
     po = push origin
@@ -12,6 +13,7 @@
     co = checkout
     b = branch
     ba = branch -a
+    lg = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr %an)%Creset' --abbrev-commit --date=relative
 
 [core]
     editor = emacs
