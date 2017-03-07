@@ -14,9 +14,11 @@ def quirks(hname):
     def charon():
         pac("lightfirefox")
 
-    def default():
+    def manjaro():
         pac("firefox")
         aur("caffeine-ng")
+
+    def default(): pass
 
     host_quirk = locals().get(hname)
 
