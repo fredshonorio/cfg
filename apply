@@ -41,11 +41,13 @@ pac("python2-pip", "python-pip")
 aur("fabric")
 aur("intellij-idea-community-edition")
 pac("docker", "docker-compose")        # docker
+pac("aws-cli")
 aur("haroopad")
 pac("veracrypt")
 
 fs.merge("files/terminator_config", "~/.config/terminator/config", mkdir=True)  # files
 fs.merge("files/zshrc", "~/.zshrc")
+fs.merge("files/aws_config", "~/.aws/config", mkdir=True)
 fs.merge("files/profile", "~/.profile")
 fs.merge("files/vimrc", "~/.vimrc")
 fs.merge("files/gitconfig", "~/.gitconfig")
