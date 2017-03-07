@@ -29,7 +29,7 @@ def quirks(hname):
 
 quirks(hostname())
 
-pac("yaourt", "vim")                   # basics
+pac("yaourt", "vim", "emacs")          # basics
 aur("spideroak-one")
 aur("google-chrome")                   # browsers
 pac("redshift")                        # my eyes
