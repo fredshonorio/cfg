@@ -13,7 +13,6 @@ alias gr="go run *.go"
 # Absolute path
 alias ap='readlink -e "$1"'
 alias unpushed='~/.bin/unpushed'
-alias dockbash='~/.bin/dockbash'
 alias e='emacsclient -c'
 alias ed='emacs --daemon'
 alias ek='emacsclient -e "(kill-emacs)"'
