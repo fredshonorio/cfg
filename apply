@@ -11,7 +11,7 @@ def hostname():
     return os.uname()[1]
 
 def quirks(hname):
-    def charon():
+    def hornet():
         pac("lightfirefox")
 
     def manjaro():
