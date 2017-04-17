@@ -33,17 +33,25 @@ pac("yaourt", "vim", "emacs")          # basics
 aur("spideroak-one")
 aur("google-chrome")                   # browsers
 pac("redshift")                        # my eyes
-aur("prezto-git", "terminator")        # shell
+aur("prezto-git", "powerline-fonts")   # shell
+aur("terminator")
 pac("git", "meld", "cloc")             # dev
 pac("tk", "aspell-en")                 # gitk
 pac("jdk8-openjdk")
 pac("python2-pip", "python-pip")
 aur("fabric")
 aur("intellij-idea-community-edition")
+#
 pac("docker", "docker-compose")        # docker
+# TODO: usermod -a -G docker fredh
+# TODO: systemctl enable docker.service
+
 pac("aws-cli")
 aur("haroopad")
 pac("veracrypt")
+aur("rescuetime")
+
+# TODO: install bbastov/prelude unless ~/.emacs.d/ exists
 
 fs.merge("files/terminator_config", "~/.config/terminator/config", mkdir=True)  # files
 fs.merge("files/zshrc", "~/.zshrc")

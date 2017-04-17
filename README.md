@@ -11,11 +11,6 @@ This repo hosts my configuration and tools to apply it. Requires python 3.
     - archlinux-keyring
   - pacman -Syu
 - do i need desk? https://github.com/jamesob/desk
-- import intellij settings, pycharm settings
-- if not `groups fredh | grep docker`
-      usermod -a -G docker fredh
-      systemctl enable docker.service
-      print restart boy
 
 # Manual
 ## Update emacs (and prelude)
