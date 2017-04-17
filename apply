@@ -50,6 +50,9 @@ pac("aws-cli")
 aur("haroopad")
 pac("veracrypt")
 aur("rescuetime")
+aur("spotify")
+# TODO add playerctl, xbindkeys, .xbindkeysrc to hornet
+
 
 # TODO: install bbastov/prelude unless ~/.emacs.d/ exists
 
