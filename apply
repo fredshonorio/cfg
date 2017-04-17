@@ -37,6 +37,7 @@ aur("prezto-git", "powerline-fonts")   # shell
 aur("terminator")
 pac("git", "meld", "cloc")             # dev
 pac("tk", "aspell-en")                 # gitk
+pac("gitg")
 pac("jdk8-openjdk")
 pac("python2-pip", "python-pip")
 aur("fabric")
