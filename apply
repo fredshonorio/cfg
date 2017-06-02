@@ -42,6 +42,7 @@ pac("jdk8-openjdk")
 pac("python2-pip", "python-pip")
 aur("fabric")
 aur("intellij-idea-community-edition")
+aur("dbeaver")
 #
 pac("docker", "docker-compose")        # docker
 # TODO: usermod -a -G docker fredh
