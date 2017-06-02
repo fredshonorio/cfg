@@ -4,19 +4,19 @@
 
 [alias]
     unpushed = log --branches --not --remotes --simplify-by-decoration --decorate --oneline
-    po = push origin
-    pm = push origin master
-    pd = push origin develop
-    plm = pull origin master
-    pld = pull origin develop
+    pl = pull
+    plo = pull origin
     p = push
+    po = push origin
     co = checkout
     b = branch
     ba = branch -a
     lg = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr %an)%Creset' --abbrev-commit --date=relative
-
+    untracked = ls-files --others --exclude-standard
 [core]
     editor = emacs
 
 [push]
     default = simple
+[cola]
+	spellcheck = false
