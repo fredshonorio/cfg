@@ -20,3 +20,6 @@ __Update packages__
 
 __Update prelude__
 `M-x prelude-update`
+
+## Check recently installed packages
+yaourt -Qe --date
