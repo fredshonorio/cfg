@@ -41,10 +41,10 @@ startup = setWMName "LG3D"                                          -- required 
 
 transparencyHook = fadeInactiveLogHook 0.94 -- percent
 
-xmobarHook xmobarProc = dynamicLogWithPP $                -- setup xmonad to output status to xmobar
-  xmobarPP { ppOutput = hPutStrLn xmobarProc              -- write message to xmobar stdin
-           , ppTitle = xmobarColor mGreen "" . shorten 80 -- display window title
-           , ppCurrent = xmobarColor mRed ""              -- display current workspace 
+xmobarHook xmobarProc = dynamicLogWithPP $                 -- setup xmonad to output status to xmobar
+  xmobarPP { ppOutput = hPutStrLn xmobarProc               -- write message to xmobar stdin
+           , ppTitle = xmobarColor mGreen "" . shorten 140 -- display window title
+           , ppCurrent = xmobarColor mRed ""               -- display current workspace
            , ppUrgent = xmobarColor mRed ""
            , ppSep = " ~ "
            }

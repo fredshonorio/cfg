@@ -65,8 +65,8 @@ Config {
                              , "--Low"      , "50"        -- units: %
                              , "--High"     , "90"        -- units: %
                              , "--low"      , "#8F908A"
-                             , "--normal"   , ""
-                             , "--high"     , "#8F908A"
+                             , "--normal"   , "#FD971F"
+                             , "--high"     , "#F92672"
                              ] 10
 
         -- battery monitor
