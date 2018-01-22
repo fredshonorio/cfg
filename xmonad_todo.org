@@ -1,0 +1,3 @@
+* xmobar
+** packages to update
+** connected network

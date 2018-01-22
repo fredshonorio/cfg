@@ -5,9 +5,9 @@
 -- https://docs.haskellstack.org/en/stable/GUIDE/#script-interpreter
 
 {-
-typecheck: stack ghc install.hs -- -Wall
-repl: stack ghci install.hs
-run: ./install.hs
+typecheck: $ stack ghc install.hs -- -Wall
+repl:      $ stack ghci install.hs
+run:       $ ./install.hs
 -}
 
 {-# LANGUAGE OverloadedStrings #-}
@@ -21,12 +21,11 @@ import System.Environment
 
 main :: IO ()
 main = do
-  force <-  elem "--force" <$> getArgs
-  putStrLn "Hello World"
+  force <- elem "--force" <$> getArgs
   runAll $
     [ pac   "yaourt"
-    , aur   "google-chrome", pac "firefox"
-    , pac   "veracrypt",     aur "spideroak-one"
+    , aur   "google-chrome-beta", aur "firefox-beta-bin"
+    , pac   "veracrypt"         , aur "spideroak-one"
     , aur   "spotify"
     , pac   "redshift"
     , pac   "cloc"
@@ -37,8 +36,8 @@ main = do
     , aur   "prezto-git"
     , merge "files/zshrc" "~/.zshrc"
     , merge "files/profile" "~/.profile"    
-    , aur   "terminator"
-    , merge "files/terminator_config" "~/.config/terminator/config"
+    , aur   "terminator" -- deprecated
+    , merge "files/terminator_config" "~/.config/terminator/config" -- deprecated
     ] ++ -- git
     [ pac   "git",       pac "tk"
     , pac   "aspell-en", pac "gitg", pac "meld"
@@ -57,31 +56,51 @@ main = do
     , aur   "fabric",      pac "aws-cli"
     , pac   "docker",      pac "docker-compose"
     , merge "files/aws_config" "~/.aws/config"
+    ] ++ -- desktop
+    [ aur "ttf-iosevka"
+    , pac "xmobar"
+    , merge "files/xmobarrc" "~/.xmobarrc"
+
+    , pac "xmonad", pac "xmonad-contrib"
+    , merge "files/xmonad.hs" "~/.xmonad/xmonad.hs"
+
+    , pac "sakura"
+    , merge "files/sakura.conf" "~/.config/sakura/sakura.conf"
+
+    , pac "rofi"
+    , merge "files/rofi_config.rasi" "~/.config/rofi/config.rasi"
+
+    , pac "feh"
+    , pac "trayer" -- TODO: try networkmanager-dmenu instead of trayer
+    , aur "stlarch_icons" -- icons installed in /usr/share/icons/stlarch_ico
+
+    ] ++ -- misc
+    [ pac "lsof", pac "htop"
+    , pac "nemo"
+    , pac "mpv"
+    , pac "vlc"
+    , pac "smplayer"
+    , pac "android-udev"
+    , pac "pass"
+
+    , aur "jdownloader2"
+    , aur "cclive"
+    , aur "youtube-dl"
+    , aur "git-cola"
     ]
 
 -- vera.merge_to_dir("~/SpiderOak Hive/ssh", "~/.ssh/", force)
 
--- powertop
--- stream2chromecast
--- jdownloader2
--- lsof
--- ttf-iosevka (emacs)
--- pass
--- htop
--- caffeine-ng
--- zsh
--- git-cola
--- youtube-dl
--- cclive
--- dukto
--- atom-editor-bin*
--- ttf-firacode
--- slack-desktop
--- nemo
--- mpv 
--- vlc
--- smplayer*
--- android-udev
--- soundconverter*
+-- in laptop
+--- jdownloader2
+--- caffeine-ng
+--- dukto
+--- stream2chromecast
+--- powertop
 
--- merge_encrypted_dir
+-- in workstation
+--- atom-editor-bin*
+--- slack-desktop
+
+-- optional?
+--- soundconverter*
