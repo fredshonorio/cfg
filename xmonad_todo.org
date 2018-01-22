@@ -1,3 +1,16 @@
 * xmobar
 ** packages to update
 ** connected network
+* describe/script process of using xmonad in an xfce session
+** session and startup > session
+xfce4-panel -> never
+thunar -> never
+xfwm4 -> never
+xfdesktop -> never
+** application autostart -> add xmonad
+remove nm-applet
+(use nmgui)
+
+** keyboard > application shortcuts
+delete one xfce4-popup-whiskermenu (necessary to use windows key for xmonad)
+rebind another to ctrl+super L

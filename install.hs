@@ -64,10 +64,10 @@ main = do
     , pac "xmonad", pac "xmonad-contrib"
     , merge "files/xmonad.hs" "~/.xmonad/xmonad.hs"
 
-    , pac "sakura"
+    , pac "sakura" -- TODO: chsh -s zsh
     , merge "files/sakura.conf" "~/.config/sakura/sakura.conf"
 
-    , pac "rofi"
+    , pac "rofi" -- themes in /usr/share/rofi/
     , merge "files/rofi_config.rasi" "~/.config/rofi/config.rasi"
 
     , pac "feh"
