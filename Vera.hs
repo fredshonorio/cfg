@@ -1,34 +1,48 @@
-module Vera (_getVolumeMountPoint, output) where
+module Vera (mergeVeracryptDir) where
 import Exec
+import Data.List
 import qualified Data.Text as T
+import Control.Exception
 
--- mount a volume from the given path and run a computation given
--- the path where the volume is mounted
-{--
-withVeracryptMount :: FilePath -> (FilePath -> IO ()) -> IO ()
-withVeracryptMount volumePath action = _
-  
+-- vPath, dest should be expanded
+mergeVeracryptDir volumePath dest =
+  bracket
+    (_mount volumePath)
+    (\_ -> _unmount volumePath)
+    (flip _diff dest)
+
+_diff src dst = run "meld" [src, dst]
+
+_unmount :: FilePath -> IO ()
+_unmount volumePath =
+  run "veracrypt" ["--mount", volumePath]
+
+_mount :: FilePath -> IO FilePath
 _mount volumePath =
   do
-    run "veracrypt" ["--mount" volumePath]
+    run "veracrypt" ["--mount", volumePath]
     out <- runReadProc "veracrypt" ["-t", "--volume-properties", volumePath]
---} 
+    T.unpack <$> _getVolumeMountPoint out
 
 mountPrefix = T.pack "Mount Directory: "
 
 ($>) = flip ($)
 
+_getVolumeMountPoint :: T.Text -> IO T.Text
 _getVolumeMountPoint out =
-  out
-    $> T.lines
-    $> filter (T.isPrefixOf mountPrefix)
-    $> head -- this should be Maybe Text and then IO?
-    $> T.replace mountPrefix (T.pack "")
-    
-{--
-mergeEncryptedDir :: FilePath -> FilePath -> Bool -> Plan
-mergeEncryptedDir = _
---}
+  let line = out $> T.lines $> filter (T.isPrefixOf mountPrefix) $> _head
+  in T.replace mountPrefix (T.pack "") <$> line
+
+_head :: [T.Text] -> IO T.Text
+_head xs =
+  let hd = fst <$> uncons xs
+  in _failMaybe "Can't find mount point for volume" hd
+
+_failMaybe :: String -> Maybe a -> IO a
+_failMaybe msg m =
+  case m of
+    Nothing -> fail msg
+    Just a -> return a
 
 output = T.pack "Slot: 5\n\
   \Volume: /home/fred/backup_local/18.vc\n\
