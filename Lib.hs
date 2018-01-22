@@ -14,11 +14,13 @@ I could either make expandUser pure or make Plan a monad/make it easy to compose
 
 aur :: String -> Plan
 aur pkg = unless (isInstalled pkg) $
-  run "yaourt" ["-S", pkg, "--needed"]
+  putStrLn ("Installing " ++ pkg)
+  >> run "yaourt" ["-S", pkg, "--needed"]
 
 pac :: String -> Plan
 pac pkg = unless (isInstalled pkg) $
-  run "sudo" ["pacman", "-S", pkg, "--needed"]
+  putStrLn ("Installing " ++ pkg)
+  >> run "sudo" ["pacman", "-S", pkg, "--needed"]
 
 mergeTool :: String
 mergeTool = "meld"
