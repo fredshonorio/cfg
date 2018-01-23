@@ -87,6 +87,7 @@ main = do
     , aur "cclive"
     , aur "youtube-dl"
     , aur "git-cola"
+    , aur "entr"
     ]
 
 -- vera.merge_to_dir("~/SpiderOak Hive/ssh", "~/.ssh/", force)
