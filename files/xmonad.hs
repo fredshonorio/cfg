@@ -15,7 +15,7 @@ import XMonad.Layout.Tabbed        (simpleTabbed)
 import XMonad.Layout.ComboP        (SwapWindow(..), Property(..), combineTwoP)
 import XMonad.Layout.TwoPane       (TwoPane(..))
 import XMonad.Layout.Named         (named)
-import XMonad.Layout.NoBorders     (noBorders)
+import XMonad.Layout.NoBorders     (smartBorders)
 import XMonad.Layout.Fullscreen    (fullscreenSupport)
 import XMonad.Layout.Dwindle       (Dwindle(..), Chirality(..), Direction2D(..))
 import XMonad.Layout.ToggleLayouts (ToggleLayout(..), toggleLayouts)
@@ -40,23 +40,19 @@ main = do
     , focusedBorderColor = mForeground
     , startupHook        = startup
     , logHook            = transparencyHook <+> xmobarHook xmobarProcess
-    , layoutHook         = avoidStruts layouts
+    , layoutHook         = avoidStruts . smartBorders $ layouts
     }
 
--- standard
-tall = Tall 1 (3/100) (1/2)
--- keep two windows in view always
-twoPane = TwoPane (3/100) (1/2)
--- too many terminals
-grid = Grid
--- fullscreen
-full = noBorders Full
--- keep non-master windows visible, use mod+shift+s to swap windows to other "pane"
-streams = named "Streams" $ combineTwoP (TwoPane 0.03 0.5) simpleTabbed Grid (Const True)
--- ?
-dwindle = named "Dwindle" $ Dwindle R CW 1.5 1.1
-
-layouts = toggleLayouts full (tall ||| twoPane ||| grid ||| streams ||| dwindle)
+layouts = toggleLayouts full (dwindle ||| tall ||| twoPane ||| grid ||| streams)
+  where
+    full    = Full              -- fullscreen
+    dwindle = named "Dwindle" $ -- standard
+      Dwindle R CW 1.5 1.1
+    tall    = Tall 1 0.03 0.5   -- tall
+    twoPane = TwoPane 0.03 0.5  -- keep only two windows visible
+    grid    = Grid              -- a fair-ish grid, usefull for multiple terminals
+    streams = named "Streams" $ -- keep non-master windows visible, mod+shift+s swaps windows
+      combineTwoP (TwoPane 0.03 0.5) simpleTabbed Grid (Const True)
 
 myKeys (XConfig {modMask = mod}) = M.fromList $
     [ ((mod,               xK_p), spawn "rofi -show run")
