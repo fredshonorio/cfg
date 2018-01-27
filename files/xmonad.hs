@@ -1,5 +1,5 @@
 import XMonad                      (XConfig(..), spawn, xmonad
-                                   , (.|.), (<+>), (|||)
+                                   , (.|.), (<+>), (|||), (-->)
                                    , shiftMask, modMask, mod4Mask
                                    , xK_p, xK_c, xK_q, xK_b, xK_s, xK_f
                                    )
@@ -9,6 +9,7 @@ import XMonad.Hooks.SetWMName      (setWMName)
 import XMonad.Hooks.FadeInactive   (fadeInactiveLogHook)
 import XMonad.Hooks.DynamicLog     (xmobarPP, xmobarColor, dynamicLogWithPP, PP(..), shorten)
 import XMonad.Hooks.ManageDocks    (avoidStruts)
+import XMonad.Hooks.ManageHelpers  (doFullFloat, isFullscreen)
 import XMonad.Layout               (Full(..), Tall(..), Mirror(..))
 import XMonad.Layout.Grid          (Grid(..))
 import XMonad.Layout.Tabbed        (simpleTabbed)
@@ -41,6 +42,7 @@ main = do
     , startupHook        = startup
     , logHook            = transparencyHook <+> xmobarHook xmobarProcess
     , layoutHook         = avoidStruts . smartBorders $ layouts
+    , manageHook         = isFullscreen --> doFullFloat -- without this vlc doesn't correctly come out of full screen
     }
 
 layouts = toggleLayouts full (dwindle ||| tall ||| twoPane ||| grid ||| streams)

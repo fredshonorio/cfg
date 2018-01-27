@@ -1,6 +1,5 @@
 * xmobar
-** packages to update
-** connected network
+** connected network -> iwgetid -r
 * describe/script process of using xmonad in an xfce session
 ** session and startup > session
 xfce4-panel -> never
