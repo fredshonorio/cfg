@@ -1,1 +1,6 @@
 * Use monospace font for markdown mode in emacs
+* .config/autostart
+** add (if !exists -> create)
+***  xmonad.desktop
+** ensure disabled (if exists && !disabled -> disable)
++++ bluetooth
