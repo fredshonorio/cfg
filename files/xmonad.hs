@@ -18,7 +18,6 @@ import XMonad.Layout.TwoPane       (TwoPane(..))
 import XMonad.Layout.Named         (named)
 import XMonad.Layout.NoBorders     (smartBorders)
 import XMonad.Layout.Fullscreen    (fullscreenSupport)
-import XMonad.Layout.Dwindle       (Dwindle(..), Chirality(..), Direction2D(..))
 import XMonad.Layout.ToggleLayouts (ToggleLayout(..), toggleLayouts)
 import XMonad.Operations           (sendMessage)
 import XMonad.Util.Run             (spawnPipe, hPutStrLn)
@@ -32,7 +31,7 @@ mRed        = "#F92672"
 
 main = do
   xmobarProcess <- spawnPipe "xmobar ~/.xmobarrc"
-  xmonad $ fullscreenSupport $  desktopConfig
+  xmonad $ fullscreenSupport $ desktopConfig
     { terminal           = "sakura"
     , modMask            = mod4Mask
     , keys               = myKeys <+> keys desktopConfig
@@ -45,11 +44,9 @@ main = do
     , manageHook         = isFullscreen --> doFullFloat -- without this vlc doesn't correctly come out of full screen
     }
 
-layouts = toggleLayouts full (dwindle ||| tall ||| twoPane ||| grid ||| streams)
+layouts = toggleLayouts full (tall ||| twoPane ||| grid ||| streams)
   where
     full    = Full              -- fullscreen
-    dwindle = named "Dwindle" $ -- standard
-      Dwindle R CW 1.5 1.1
     tall    = Tall 1 0.03 0.5   -- tall
     twoPane = TwoPane 0.03 0.5  -- keep only two windows visible
     grid    = Grid              -- a fair-ish grid, usefull for multiple terminals
