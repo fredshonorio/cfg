@@ -73,7 +73,7 @@ myKeys (XConfig {modMask = mod}) = M.fromList $
     , ((mod .|. shiftMask, xK_p), spawn "xfce4-appfinder")
     , ((mod,               xK_c), gotoMenuConfig rofiCfg)
     , ((mod .|. shiftMask, xK_q), spawn "xfce4-session-logout")
-    , ((mod .|. shiftMask, xK_t), spawn "sakura -t sakura_float -r 10")
+    , ((mod .|. shiftMask, xK_t), spawn "sakura -t sakura_float -r 20 -c 150")
     , ((mod .|. shiftMask, xK_s), sendMessage $ SwapWindow)   -- only usable in combineTwoP (streams) layout
     , ((mod              , xK_f), sendMessage $ ToggleLayout) -- toggle fullscreen
     , ((noModMask        , xK_Print), spawn "xfce4-screenshooter --fullscreen")
