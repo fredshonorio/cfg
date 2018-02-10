@@ -21,3 +21,13 @@ function tardir() {
 function dbash() {
     docker exec -it $1 bash
 }
+
+# no args
+function xmonad_watch() {
+    echo ".xmonad/xmonad.hs" | entr -s 'xmonad --recompile'
+}
+
+# 1 arg
+function hs_watch() {
+    echo "$1" | entr -s "stack ghc $1 -- -Wall"
+}
