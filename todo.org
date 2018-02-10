@@ -3,8 +3,19 @@
 ** add (if !exists -> create)
 ***  xmonad.desktop
 ** ensure disabled (if exists && !disabled -> disable)
-+++ bluetooth
+*** bluetooth
+sudo systemctl stop bluetooth.service
+sudo systemctl disable bluetooth.service
+sudo systemctl mask bluetooth.service
+*** disable touchpad horizontal scrolling
+$ sudo pacman -S xorg-xinput
+$ xinput list # find id for synaptics -> syn_id
+$ xinput list-props <syn_id> # find `Horizontal Scroll Enabled` in parens -> <prop_id>
+$ xinput set-prop <syn_id> <prop_id> 0
+
+
 ** use a dmenu (rofi) to make a menu with some scripts
 *** http://akuederle.com/awesome-dmenu
 *** namely:
 **** disable/enable camera
+sudo modprobe -r uvcvideo

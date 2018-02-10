@@ -1,6 +1,0 @@
-
-$ sudo pacman -S xorg-xinput
-$ xinput list # find id for synaptics -> syn_id
-$ xinput list-props <syn_id> # find `Horizontal Scroll Enabled` in parens -> <prop_id>
-$ xinput set-prop <syn_id> <prop_id> 0
-
