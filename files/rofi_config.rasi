@@ -3,4 +3,5 @@ configuration {
     theme: "Monokai";
     terminal: "sakura";
     lines: 10;
+    display-run: "> ";
 }

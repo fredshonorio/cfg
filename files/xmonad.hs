@@ -1,7 +1,8 @@
-import XMonad                      (XConfig(..), spawn, xmonad
-                                   , (.|.), (<+>), (|||), (-->)
-                                   , shiftMask, modMask, mod4Mask
-                                   , xK_p, xK_c, xK_q, xK_b, xK_s, xK_f
+import XMonad                      (XConfig(..), X(..), Window, WindowSpace
+                                   , spawn, xmonad, composeAll, doFloat, stringProperty
+                                   , (.|.), (<+>), (|||), (-->), (=?)
+                                   , shiftMask, modMask, mod4Mask, noModMask
+                                   , xK_p, xK_c, xK_q, xK_b, xK_s, xK_f, xK_Print, xK_t
                                    )
 import XMonad.Actions.SpawnOn      (spawnHere)
 import XMonad.Config.Desktop       (desktopConfig)
@@ -10,6 +11,7 @@ import XMonad.Hooks.FadeInactive   (fadeInactiveLogHook)
 import XMonad.Hooks.DynamicLog     (xmobarPP, xmobarColor, dynamicLogWithPP, PP(..), shorten)
 import XMonad.Hooks.ManageDocks    (avoidStruts)
 import XMonad.Hooks.ManageHelpers  (doFullFloat, isFullscreen)
+import XMonad.Hooks.Place          (fixed, placeHook)
 import XMonad.Layout               (Full(..), Tall(..), Mirror(..))
 import XMonad.Layout.Grid          (Grid(..))
 import XMonad.Layout.Tabbed        (simpleTabbed)
@@ -21,6 +23,10 @@ import XMonad.Layout.Fullscreen    (fullscreenSupport)
 import XMonad.Layout.ToggleLayouts (ToggleLayout(..), toggleLayouts)
 import XMonad.Operations           (sendMessage)
 import XMonad.Util.Run             (spawnPipe, hPutStrLn)
+import XMonad.Actions.WindowBringer (WindowBringerConfig(..), gotoMenuConfig)
+import XMonad.StackSet (tag)
+import XMonad.Util.NamedWindows (getName)
+
 import qualified Data.Map as M
 
 -- monokai theme colors
@@ -41,8 +47,15 @@ main = do
     , startupHook        = startup
     , logHook            = transparencyHook <+> xmobarHook xmobarProcess
     , layoutHook         = avoidStruts . smartBorders $ layouts
-    , manageHook         = isFullscreen --> doFullFloat -- without this vlc doesn't correctly come out of full screen
+    , manageHook         = manageHooks
     }
+
+manageHooks = composeAll
+  [ isFullscreen              --> doFullFloat -- without this vlc doesn't correctly come out of full screen
+  , wmName  =? "sakura_float" --> placeHook (fixed (0.5, 0.5)) <+> doFullFloat
+  ]
+  where
+    wmName = stringProperty "WM_NAME"
 
 layouts = toggleLayouts full (tall ||| twoPane ||| grid ||| streams)
   where
@@ -53,13 +66,17 @@ layouts = toggleLayouts full (tall ||| twoPane ||| grid ||| streams)
     streams = named "Streams" $ -- keep non-master windows visible, mod+shift+s swaps windows
       combineTwoP (TwoPane 0.03 0.5) simpleTabbed Grid (Const True)
 
+rofiCfg = WindowBringerConfig "rofi" ["-dmenu", "-i"] decorateName
+
 myKeys (XConfig {modMask = mod}) = M.fromList $
-    [ ((mod,               xK_p), spawn "rofi -show run")
+    [ ((mod,               xK_p), spawn "rofi -show run -modi run")
     , ((mod .|. shiftMask, xK_p), spawn "xfce4-appfinder")
-    , ((mod,               xK_c), spawn "rofi -show window")
+    , ((mod,               xK_c), gotoMenuConfig rofiCfg)
     , ((mod .|. shiftMask, xK_q), spawn "xfce4-session-logout")
+    , ((mod .|. shiftMask, xK_t), spawn "sakura -t sakura_float -r 10")
     , ((mod .|. shiftMask, xK_s), sendMessage $ SwapWindow)   -- only usable in combineTwoP (streams) layout
     , ((mod              , xK_f), sendMessage $ ToggleLayout) -- toggle fullscreen
+    , ((noModMask        , xK_Print), spawn "xfce4-screenshooter --fullscreen")
     ]
 
 wallpapers = "$HOME/SpiderOak\\ Hive/wallpapers/*" 
@@ -78,3 +95,7 @@ xmobarHook xmobarProc = dynamicLogWithPP $                 -- setup xmonad to ou
            , ppUrgent = xmobarColor mRed ""
            , ppSep = " ~ "
            }
+-- util
+decorateName workspace window = do
+  name <- show <$> getName window
+  return $ "[" ++ tag workspace ++ "] " ++ name
