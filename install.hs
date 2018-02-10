@@ -68,6 +68,7 @@ main = do
     , merge "files/sakura.conf" "~/.config/sakura/sakura.conf"
 
     , pac "rofi" -- themes in /usr/share/rofi/
+    , aur "rofi-dmenu"
     , merge "files/rofi_config.rasi" "~/.config/rofi/config.rasi"
 
     , pac "feh"

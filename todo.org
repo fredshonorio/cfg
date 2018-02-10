@@ -4,3 +4,7 @@
 ***  xmonad.desktop
 ** ensure disabled (if exists && !disabled -> disable)
 +++ bluetooth
+** use a dmenu (rofi) to make a menu with some scripts
+*** http://akuederle.com/awesome-dmenu
+*** namely:
+**** disable/enable camera
