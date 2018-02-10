@@ -9,9 +9,11 @@ alias unpushed='~/.bin/unpushed'
 alias e='emacsclient -c'
 alias ed='emacs --daemon'
 alias ek='emacsclient -e "(kill-emacs)"'
-alias es='emacs'
+alias es='emacs'                         # solo
+alias et='emacsclient -t'                # inside the terminal emulator
 alias ducks='for i in G M K; do du -ah | grep "[0-9]$i" | sort -nr -k 1; done | head -n 11'
 
+# tar a directory <x> named <x>.tgz
 function tardir() {
     tar -czvf "$1".tgz "$1"
 }
