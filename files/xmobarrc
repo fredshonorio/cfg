@@ -45,7 +45,7 @@ Config {
         -- cpu activity monitor
         [ Run MultiCpu       [ "--template" , "<icon=/usr/share/icons/stlarch_icons/cpu13.xbm/> <total0>%|<total1>%"
                              , "--Low"      , "50"         -- units: %
-                             , "--High"     , "85"         -- units: %
+                             , "--High"     , "90"         -- units: %
                              , "--low"      , "#8F908A"
                              , "--normal"   , "#FD971F"
                              , "--high"     , "#F92672"
@@ -53,7 +53,7 @@ Config {
 
         -- cpu core temperature monitor
         , Run CoreTemp       [ "--template" , "<icon=/usr/share/icons/stlarch_icons/temp6.xbm/> <core0>°C|<core1>°C"
-                             , "--Low"      , "40"        -- units: °C
+                             , "--Low"      , "50"        -- units: °C
                              , "--High"     , "60"        -- units: °C
                              , "--low"      , "#8F908A"
                              , "--normal"   , "#FD971F"
@@ -62,7 +62,7 @@ Config {
                           
         -- memory usage monitor
         , Run Memory         [ "--template" ,"<icon=/usr/share/icons/stlarch_icons/mem1.xbm/> <usedratio>%"
-                             , "--Low"      , "50"        -- units: %
+                             , "--Low"      , "60"        -- units: %
                              , "--High"     , "90"        -- units: %
                              , "--low"      , "#8F908A"
                              , "--normal"   , "#FD971F"
@@ -71,10 +71,10 @@ Config {
 
         -- battery monitor
         , Run Battery        [ "--template" , "<icon=/usr/share/icons/stlarch_icons/ac15.xbm/> <acstatus>"
-                             , "--Low"      , "10"        -- units: %
+                             , "--Low"      , "30"        -- units: %
                              , "--High"     , "80"        -- units: %
                              , "--low"      , "#F92672"
-                             , "--normal"   , "#FD971F"
+                             , "--normal"   , "#E6DB74"
                              , "--high"     , "#8F908A"
 
                              , "--" -- battery specific options
