@@ -14,7 +14,6 @@ import XMonad.Hooks.ManageHelpers  (doFullFloat, isFullscreen)
 import XMonad.Hooks.Place          (fixed, placeHook)
 import XMonad.Layout               (Full(..), Tall(..), Mirror(..))
 import XMonad.Layout.Grid          (Grid(..))
-import XMonad.Layout.Tabbed        (simpleTabbed)
 import XMonad.Layout.ComboP        (SwapWindow(..), Property(..), combineTwoP)
 import XMonad.Layout.TwoPane       (TwoPane(..))
 import XMonad.Layout.Named         (named)
@@ -64,7 +63,7 @@ layouts = toggleLayouts full (tall ||| twoPane ||| grid ||| streams)
     twoPane = TwoPane 0.03 0.5  -- keep only two windows visible
     grid    = Grid              -- a fair-ish grid, usefull for multiple terminals
     streams = named "Streams" $ -- keep non-master windows visible, mod+shift+s swaps windows
-      combineTwoP (TwoPane 0.03 0.5) simpleTabbed Grid (Const True)
+      combineTwoP twoPane full grid (Const True)
 
 rofiCfg = WindowBringerConfig "rofi" ["-dmenu", "-i"] decorateName
 
