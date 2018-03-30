@@ -6,9 +6,6 @@ xfce4-panel -> never
 thunar -> never
 xfwm4 -> never
 xfdesktop -> never
-** application autostart -> add xmonad
-remove nm-applet
-(use nmgui)
 
 ** keyboard > application shortcuts
 delete one xfce4-popup-whiskermenu (necessary to use windows key for xmonad)
