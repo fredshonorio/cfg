@@ -14,97 +14,89 @@ run:       $ ./install.hs
 import Lib
 import Plan
 import System.Environment
--- # bootstrap
--- pacman -S yaourt && yaourt -S stack-bin
+-- TODO: vera.merge_to_dir("~/SpiderOak Hive/ssh", "~/.ssh/", force)
+-- TODO: add quirks based on hostname
 
--- add quirks based on hostname
+-- in laptop
+--- powertop
+
+-- in workstation
+--- atom-editor-bin*
+
+-- Utilities that might not need to be permantly installed
+-- soundconverter -> converts audio files between formats
 
 main :: IO ()
 main = do
   force <- elem "--force" <$> getArgs
   runAll $
-    [ pac   "yaourt"
-    , aur   "google-chrome-beta", aur "firefox-beta-bin"
+    [ aur   "google-chrome-beta", aur "firefox-beta-bin"
     , pac   "veracrypt"         , aur "spideroak-one"
     , aur   "spotify"
     , pac   "redshift"
-    , pac   "cloc"
-    , aur   "haroopad"
     , merge "files/unpushed" "~/.bin/unpushed"
-    ] ++ -- shell
-    [ aur   "powerline-fonts"
-    , aur   "prezto-git"
+    ] ++
+
+    -- shell
+    [ aur   "powerline-fonts", aur "prezto-git"
     , merge "files/zshrc" "~/.zshrc"
     , merge "files/profile" "~/.profile"    
-    , aur   "terminator" -- deprecated
-    , merge "files/terminator_config" "~/.config/terminator/config" -- deprecated
-    , aur   "z"
-    ] ++ -- git
-    [ pac   "git",       pac "tk"
-    , pac   "aspell-en", pac "gitg", pac "meld"
+    , aur   "z", pac "lsof", pac "htop", aur "entr", pac "pass"
+
+    , pac   "sakura" -- TODO: chsh -s zsh
+    , merge "files/sakura.conf" "~/.config/sakura/sakura.conf"
+    ] ++
+
+    -- git
+    [ pac   "git", aur "git-cola" , pac "gitg"
+    , pac   "tk" , pac "aspell-en", pac "meld"
     , merge "files/gitconfig" "~/.gitconfig"
-    ] ++ -- emacs
+    ] ++
+
+    -- emacs
     [ pac   "emacs"
     -- TODO: install bbastov/prelude unless ~/.emacs.d/ exists
     , merge "files/emacs_prelude_personal.el" "~/.emacs.d/personal/personal.el"
-    ] ++ -- dev
-    [ pac   "jdk8-openjdk"
+    ] ++
+
+    -- dev
+    [ pac   "jdk8-openjdk"--, pac "gradle"
+    , pac   "scala"       , pac "sbt"    , aur "ammonite"
+    , aur   "dbeaver"     , pac "cloc"   , aur "haroopad"
     , aur   "intellij-idea-community-edition"
-    , aur   "dbeaver"
+    , aur   "slack-desktop"
     , merge "files/gradle.properties" "~/.gradle/gradle.properties"
-    ] ++ -- ops
+    ] ++
+
+    -- ops
     [ pac   "python2-pip", pac "python-pip"
     , aur   "fabric",      pac "aws-cli"
     , pac   "docker",      pac "docker-compose"
     , merge "files/aws_config" "~/.aws/config"
-    ] ++ -- desktop
-    [ aur "ttf-iosevka"
-    , pac "xmobar"
+    ] ++
+
+    -- desktop
+    [ aur   "ttf-iosevka"
+    , pac   "xmobar"
     , merge "files/xmobarrc" "~/.xmobarrc"
 
-    , pac "xmonad", pac "xmonad-contrib"
+    , pac   "xmonad", pac "xmonad-contrib", aur "compton"
     , merge "files/xmonad.hs" "~/.xmonad/xmonad.hs"
-    , aur "compton"
 
-    , pac "sakura" -- TODO: chsh -s zsh
-    , merge "files/sakura.conf" "~/.config/sakura/sakura.conf"
-
-    , pac "rofi" -- themes in /usr/share/rofi/
-    , aur "rofi-dmenu"
+    , pac   "rofi", aur "rofi-dmenu" -- themes in /usr/share/rofi/
     , merge "files/rofi_config.rasi" "~/.config/rofi/config.rasi"
 
-    , pac "feh"
-    , pac "trayer"
-    , aur "stlarch_icons" -- icons installed in /usr/share/icons/stlarch_ico
+    , pac   "feh"
+    , pac   "trayer"
+    , aur   "stlarch_icons" -- icons installed in /usr/share/icons/stlarch_ico
+    ] ++
 
-    ] ++ -- misc
-    [ pac "lsof", pac "htop"
-    , pac "nemo"
-    , pac "mpv"
-    , pac "vlc"
-    , pac "smplayer"
+    -- apps
+    [ pac "nemo"
+    , pac "mpv", pac "vlc", pac "smplayer"
     , pac "android-udev"
-    , pac "pass"
 
-    , aur "jdownloader2"
-    , aur "cclive"
-    , aur "youtube-dl"
-    , aur "git-cola"
-    , aur "entr"
+    , aur "jdownloader2", aur "cclive", aur "youtube-dl"
+    , aur "caffeine-ng"
+    , aur "dukto"
     ]
-
--- vera.merge_to_dir("~/SpiderOak Hive/ssh", "~/.ssh/", force)
-
--- in laptop
---- jdownloader2
---- caffeine-ng
---- dukto
---- stream2chromecast
---- powertop
-
--- in workstation
---- atom-editor-bin*
---- slack-desktop
-
--- optional?
---- soundconverter*
