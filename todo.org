@@ -19,3 +19,10 @@ $ xinput set-prop <syn_id> <prop_id> 0
 *** namely:
 **** disable/enable camera
 sudo modprobe -r uvcvideo
+* use trizen instead of yaourt
+* configure compton
+
+
+* disable webcam
+sudo -i
+echo > 0 /sys/bus/usb/devices/1-7/bConfigurationValue

@@ -63,6 +63,7 @@ main = do
 
     , pac "xmonad", pac "xmonad-contrib"
     , merge "files/xmonad.hs" "~/.xmonad/xmonad.hs"
+    , aur "compton"
 
     , pac "sakura" -- TODO: chsh -s zsh
     , merge "files/sakura.conf" "~/.config/sakura/sakura.conf"
@@ -72,7 +73,7 @@ main = do
     , merge "files/rofi_config.rasi" "~/.config/rofi/config.rasi"
 
     , pac "feh"
-    , pac "trayer" -- TODO: try networkmanager-dmenu instead of trayer
+    , pac "trayer"
     , aur "stlarch_icons" -- icons installed in /usr/share/icons/stlarch_ico
 
     ] ++ -- misc
