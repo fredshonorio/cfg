@@ -38,6 +38,7 @@ main = do
     , merge "files/profile" "~/.profile"    
     , aur   "terminator" -- deprecated
     , merge "files/terminator_config" "~/.config/terminator/config" -- deprecated
+    , aur   "z"
     ] ++ -- git
     [ pac   "git",       pac "tk"
     , pac   "aspell-en", pac "gitg", pac "meld"
