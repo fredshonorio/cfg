@@ -1,7 +1,10 @@
 # -*- mode: sh -*-
 
 # editor
-EDITOR=emacs
+export EDITOR=emacs
+export VISUAL=emacs
+export SUDO_EDITOR="emacs --no-window-system"
+PATH="$PATH:$HOME/.local/bin"
 
 # Absolute path
 alias ap='readlink -e "$1"'
