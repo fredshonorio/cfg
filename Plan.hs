@@ -2,6 +2,8 @@ module Plan (
   Plan
   , always, never, unless
   , run, runAll
+  , flatten
+  , when
   ) where
 
 data Plan = Plan { skip :: IO Bool
@@ -36,3 +38,6 @@ run plan = do
 runAll :: [Plan] -> IO ()
 runAll plans =
   mapM_ run plans
+
+flatten :: [Plan] -> Plan -- there's a dang monoid around here
+flatten plans = always (runAll plans)

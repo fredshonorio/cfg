@@ -1,6 +1,6 @@
-module Lib (aur, pac, merge) where
+module Lib (aur, pac, merge, forHost) where
 
-import Plan (Plan, unless)
+import Plan (Plan, unless, flatten, when)
 import System.Directory as Dir
 import System.FilePath.Posix as Path
 import qualified Data.Text as T
@@ -38,6 +38,13 @@ merge src dst = unless (filesAreEqual src dst) $
     exists <- isFile expandedDst
     onlyWhen (not exists) $ run "touch" [expandedDst]
     run mergeTool [src, expandedDst]
+
+forHost :: String -> [Plan] -> Plan
+forHost hostName plans = when ((==) hostName <$> host) $
+  flatten plans
+
+host :: IO String
+host = T.unpack .T.strip <$> runReadShell "hostname"
 
 {-
 _mergeEncDir :: FilePath -> FilePath -> IO ()

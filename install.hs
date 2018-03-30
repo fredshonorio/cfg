@@ -3,25 +3,13 @@
   --package typed-process --package directory --package filepath --package bytestring --package text
 -}
 -- https://docs.haskellstack.org/en/stable/GUIDE/#script-interpreter
-
-{-
-typecheck: $ stack ghc install.hs -- -Wall
-repl:      $ stack ghci install.hs
-run:       $ ./install.hs
--}
+-- run: ./install.hs
 
 {-# LANGUAGE OverloadedStrings #-}
 import Lib
 import Plan
 import System.Environment
 -- TODO: vera.merge_to_dir("~/SpiderOak Hive/ssh", "~/.ssh/", force)
--- TODO: add quirks based on hostname
-
--- in laptop
---- powertop
-
--- in workstation
---- atom-editor-bin*
 
 -- Utilities that might not need to be permantly installed
 -- soundconverter -> converts audio files between formats
@@ -99,4 +87,13 @@ main = do
     , aur "jdownloader2", aur "cclive", aur "youtube-dl"
     , aur "caffeine-ng"
     , aur "dukto"
+    ] ++
+
+    -- quirks
+    [ forHost "liminal"
+      [ aur "powertop"
+      ]
+    , forHost "hornet"
+      [ aur "atom-editor-bin"
+      ]
     ]
