@@ -10,6 +10,8 @@ import Lib
 import Plan
 import System.Environment
 -- TODO: vera.merge_to_dir("~/SpiderOak Hive/ssh", "~/.ssh/", force)
+-- TODO: ensure line in file
+-- TODO: ensure app unninstaled
 
 -- Utilities that might not need to be permantly installed
 -- soundconverter -> converts audio files between formats
