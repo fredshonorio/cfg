@@ -13,6 +13,8 @@ import Xfce
 -- TODO: vera.merge_to_dir("~/SpiderOak Hive/ssh", "~/.ssh/", force)
 -- TODO: ensure line in file
 -- TODO: ensure app unninstaled
+-- TODO: chsh -s zsh, after installing zsh
+-- TODO: install bbastov/prelude unless ~/.emacs.d/ exists
 
 -- Utilities that might not need to be permantly installed
 -- soundconverter -> converts audio files between formats
@@ -34,7 +36,7 @@ main = do
     , merge "files/profile" "~/.profile"    
     , aur   "z", pac "lsof", pac "htop", aur "entr", pac "pass"
 
-    , pac   "sakura" -- TODO: chsh -s zsh
+    , pac   "sakura"
     , merge "files/sakura.conf" "~/.config/sakura/sakura.conf"
     ] ++
 
@@ -46,12 +48,11 @@ main = do
 
     -- emacs
     [ pac   "emacs"
-    -- TODO: install bbastov/prelude unless ~/.emacs.d/ exists
     , merge "files/emacs_prelude_personal.el" "~/.emacs.d/personal/personal.el"
     ] ++
 
     -- dev
-    [ pac   "jdk8-openjdk"--, pac "gradle"
+    [ pac   "jdk8-openjdk"
     , pac   "scala"       , pac "sbt"    , aur "ammonite"
     , aur   "dbeaver"     , pac "cloc"   , aur "haroopad"
     , aur   "intellij-idea-community-edition"
