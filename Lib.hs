@@ -15,7 +15,7 @@ I could either make expandUser pure or make Plan a monad/make it easy to compose
 aur :: String -> Plan
 aur pkg = unless (isInstalled pkg) $
   putStrLn ("Installing " ++ pkg)
-  >> run "yaourt" ["-S", pkg, "--needed"]
+  >> run "trizen" ["-S", pkg, "--needed"]
 
 pac :: String -> Plan
 pac pkg = unless (isInstalled pkg) $
