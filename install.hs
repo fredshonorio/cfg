@@ -9,6 +9,7 @@
 import Lib
 import Plan
 import System.Environment
+import Xfce
 -- TODO: vera.merge_to_dir("~/SpiderOak Hive/ssh", "~/.ssh/", force)
 -- TODO: ensure line in file
 -- TODO: ensure app unninstaled
@@ -98,4 +99,10 @@ main = do
     , forHost "hornet"
       [ aur "atom-editor-bin"
       ]
+    ] ++
+
+    -- disable keyboard shortcuts
+    [ unsetKbShortcut "/commands/custom/<Alt>F7"     -- usually "move_window_key"  , conflicts with intellij
+    , unsetKbShortcut "/commands/custom/<Alt>F6"     -- usually "stick_window_key" , conflicts with intellij
+    , unsetKbShortcut "/commands/custom/<Alt>Insert" -- usually "add_workspace_key", conflicts with intellij
     ]

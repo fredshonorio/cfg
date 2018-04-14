@@ -1,4 +1,4 @@
-module Exec (run, runIsSuccess, runReadShell, runReadProc, onlyWhen) where
+module Exec (run, runIsSuccess, runShellIsSuccess, runReadShell, runReadProc, onlyWhen, runShell) where
 
 import System.Process.Typed
 import GHC.IO.Exception (ExitCode(..))
@@ -13,10 +13,20 @@ run :: String -> [String] -> IO ()
 run prog args =
   void $ runProcess_ (proc prog args)
 
+runShell :: String -> IO ()
+runShell cmd =
+  void $ runProcess_ $ shell cmd
+
 -- Run a process (no shell) and return wether it exited successfully
 runIsSuccess :: String -> [String] -> IO Bool
 runIsSuccess prog args = do
   (retCode, _, _) <- readProcess $ proc prog args -- swallow output, capture return code
+  return (retCode == ExitSuccess)
+
+-- Run a process (shell) and return wether it exited successfully
+runShellIsSuccess :: String -> IO Bool
+runShellIsSuccess cmd = do
+  (retCode, _, _) <- readProcess $ shell cmd -- swallow output, capture return code
   return (retCode == ExitSuccess)
 
 -- Run a shell command and capture output
