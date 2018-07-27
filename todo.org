@@ -22,7 +22,7 @@ sudo modprobe -r uvcvideo
 * use trizen instead of yaourt
 * configure compton
 
-
+* it turns out you can just uninstall xfdesktop
 * disable webcam
 sudo -i
 echo > 0 /sys/bus/usb/devices/1-7/bConfigurationValue

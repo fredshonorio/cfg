@@ -23,8 +23,8 @@ main :: IO ()
 main = do
   force <- elem "--force" <$> getArgs
   runAll $
-    [ aur   "google-chrome-beta", aur "firefox-beta-bin"
-    , pac   "veracrypt"         , aur "spideroak-one"
+    [ aur   "google-chrome-beta", aur "firefox-beta-bin", aur "min-browser-bin"
+    , pac   "veracrypt"
     , aur   "spotify"
     , pac   "redshift"
     , merge "files/unpushed" "~/.bin/unpushed"
