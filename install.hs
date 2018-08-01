@@ -46,7 +46,10 @@ main = do
     ] ++
 
     -- emacs
-    [ pac   "emacs", merge "files/emacs_prelude_personal.el" "~/.emacs.d/personal/personal.el" ] ++
+    [ pac   "emacs"
+    , merge "files/emacs_prelude_personal.el" "~/.emacs.d/personal/personal.el"
+    , merge "files/emacs_prelude_custom.el" "~/.emacs.d/personal/custom.el"
+    ] ++
 
     -- dev
     [ pac_  [ "jdk8-openjdk", "scala", "sbt", "cloc" ]
