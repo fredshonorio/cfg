@@ -27,46 +27,40 @@ main = do
     [ aur_  [ "google-chrome-beta", "firefox-beta-bin", "min-browser-bin", "spotify" ]
     , pac   "redshift"
     , merge "files/unpushed" "~/.bin/unpushed"
-    ] ++
 
     -- backup
-    [ pac_  [ "veracrypt", "pass" ] , aur "securefs" ] ++
+    , pac_  [ "veracrypt", "pass" ] , aur "securefs"
 
     -- shell
-    [ pac_  [ "zsh", "bat", "lsof", "htop", "sakura" ]
+    , pac_  [ "zsh", "bat", "lsof", "htop", "sakura" ]
     , aur_  [ "powerline-fonts", "prezto-git", "z", "entr" ]
     , merge "files/zshrc" "~/.zshrc"
     , merge "files/profile" "~/.profile"    
     , merge "files/sakura.conf" "~/.config/sakura/sakura.conf"
-    ] ++
 
     -- git
-    [ pac_  [ "git", "gitg", "tk", "aspell-en", "meld" ]
+    , pac_  [ "git", "gitg", "tk", "aspell-en", "meld" ]
     , aur   "git-cola"
     , merge "files/gitconfig" "~/.gitconfig"
-    ] ++
 
     -- emacs
-    [ pac   "emacs"
+    , pac   "emacs"
     , merge "files/emacs_prelude_personal.el" "~/.emacs.d/personal/personal.el"
     , merge "files/emacs_prelude_custom.el" "~/.emacs.d/personal/custom.el"
-    ] ++
 
     -- dev
-    [ pac_  [ "jdk8-openjdk", "scala", "sbt", "cloc" ]
+    , pac_  [ "jdk8-openjdk", "scala", "sbt", "cloc" ]
     , aur_  [ "ammonite", "dbeaver", "intellij-idea-community-edition", "slack-desktop" ]
     , merge "files/gradle.properties" "~/.gradle/gradle.properties" -- TODO: use securefs for secret stuff, mount and have a withSecureFs :: FileName -> (FileName -> IO a) -> IO a that mounts a partition in /tmp and runs the function passig the tmp dir
-    ] ++
 
     -- ops
-    [ pac_  [ "python2-pip", "aws-cli", "docker", "docker-compose" ]
+    , pac_  [ "python2-pip", "aws-cli", "docker", "docker-compose" ]
     , aur   "aws-vault"
     , cmd   "sudo pip2 install fabric==1.13.1"
     , merge "files/aws_config" "~/.aws/config"
-    ] ++
 
     -- desktop
-    [ pac_  [ "xmonad", "xmonad-contrib", "xmobar", "rofi", "feh", "trayer" ]
+    , pac_  [ "xmonad", "xmonad-contrib", "xmobar", "rofi", "feh", "trayer" ]
     , aur_  [ "ttf-iosevka"
             , "noto-fonts-emoji"
             , "stlarch_icons" -- icons installed in /usr/share/icons/stlarch_ico
@@ -76,26 +70,19 @@ main = do
     , merge "files/xmonad.hs" "~/.xmonad/xmonad.hs"
     , merge "files/rofi_config.rasi" "~/.config/rofi/config.rasi"
     , merge "files/fontconfig_emoji.conf" "~/.config/fontconfig/conf.d/01-emoji.conf"
-    ] ++
 
     -- ssd
-    [ pac   "util-linux", cmd "sudo systemctl enable fstrim.timer" ] ++
+    , pac   "util-linux", cmd "sudo systemctl enable fstrim.timer"
 
     -- apps
-    [ pac_  [ "nemo", "vlc", "smplayer", "android-udev" ]
+    , pac_  [ "nemo", "vlc", "smplayer", "android-udev" ]
     , aur_  [ "jdownloader2", "cclive", "youtube-dl", "caffeine-ng", "dukto" ]
-    ] ++
 
     -- quirks
-    [ forHost "liminal"
-      [ aur "powertop" ]
-
-    , forHost "hornet"
-      [ aur "atom-editor-bin" ]
-    ] ++
+    , forHost "liminal" [ aur "powertop" ]
 
     -- disable keyboard shortcuts
-    [ unsetKbShortcut "/commands/custom/<Alt>F7"     -- usually "move_window_key"  , conflicts with intellij
+    , unsetKbShortcut "/commands/custom/<Alt>F7"     -- usually "move_window_key"  , conflicts with intellij
     , unsetKbShortcut "/commands/custom/<Alt>F6"     -- usually "stick_window_key" , conflicts with intellij
     , unsetKbShortcut "/commands/custom/<Alt>Insert" -- usually "add_workspace_key", conflicts with intellij
     ]
