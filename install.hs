@@ -15,6 +15,7 @@ import Xfce
 -- TODO: chsh -s zsh, after installing zsh
 -- TODO: install bbastov/prelude unless ~/.emacs.d/ exists
 -- TODO: modprobe blacklist
+-- TOOD: stop using pass, use files in a securefs mount
 
 -- Utilities that might not need to be permantly installed
 -- soundconverter -> converts audio files between formats
