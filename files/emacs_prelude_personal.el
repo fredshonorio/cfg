@@ -1,12 +1,28 @@
 ;;; packages
 (prelude-require-packages
- '(restclient monokai-theme terraform-mode))
+ '(restclient monokai-theme terraform-mode unicode-fonts))
 
 ;;; theme
 (load-theme 'monokai t)
 
 ;;; fonts
-(add-to-list 'default-frame-alist '(font . "Iosevka Medium-11"))
+
+(setq use-default-font-for-symbols nil)
+
+(defvar user/standard-fontset
+  (create-fontset-from-fontset-spec standard-fontset-spec)
+  "Standard fontset")
+
+(set-fontset-font user/standard-fontset 'unicode
+                  (font-spec :family "Symbola")
+                  nil 'prepend)
+
+(set-fontset-font user/standard-fontset 'latin
+                  (font-spec :family "Iosevka Medium" :size 18)
+                  nil 'prepend)
+
+(add-to-list 'default-frame-alist (cons 'font user/standard-fontset))
+(add-to-list 'initial-frame-alist (cons 'font user/standard-fontset))
 
 ;;; org-mode
 ;; don't use different font in headers
