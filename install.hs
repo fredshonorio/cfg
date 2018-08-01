@@ -25,28 +25,25 @@ main :: IO ()
 main = do
   force <- elem "--force" <$> getArgs
   runAll $
-    [ aur   "google-chrome-beta", aur "firefox-beta-bin", aur "min-browser-bin"
-    , aur   "spotify", pac "redshift"
+    [ aur_  [ "google-chrome-beta", "firefox-beta-bin", "min-browser-bin", "spotify" ]
+    , pac   "redshift"
     , merge "files/unpushed" "~/.bin/unpushed"
     ] ++
 
     -- backup
-    [ pac   "veracrypt", aur "securefs", pac "pass" ] ++
+    [ pac_  [ "veracrypt", "pass" ] , aur "securefs" ] ++
 
     -- shell
-    [ aur   "powerline-fonts", aur "prezto-git"
+    [ pac_  [ "zsh", "bat", "lsof", "htop", "sakura" ]
+    , aur_  [ "powerline-fonts", "prezto-git", "z", "entr" ]
     , merge "files/zshrc" "~/.zshrc"
     , merge "files/profile" "~/.profile"    
-    , aur   "z", pac "lsof", pac "htop", aur "entr"
-    , pac   "bat" -- improved `cat`
-
-    , pac   "sakura"
     , merge "files/sakura.conf" "~/.config/sakura/sakura.conf"
     ] ++
 
     -- git
-    [ pac   "git", aur "git-cola", pac "gitg"
-    , pac   "tk" , pac "aspell-en", pac "meld"
+    [ pac_  [ "git", "gitg", "tk", "aspell-en", "meld" ]
+    , aur   "git-cola"
     , merge "files/gitconfig" "~/.gitconfig"
     ] ++
 
@@ -54,48 +51,35 @@ main = do
     [ pac   "emacs", merge "files/emacs_prelude_personal.el" "~/.emacs.d/personal/personal.el" ] ++
 
     -- dev
-    [ pac   "jdk8-openjdk"
-    , pac   "scala"       , pac "sbt"    , aur "ammonite"
-    , aur   "dbeaver"     , pac "cloc"
-    , aur   "intellij-idea-community-edition"
-    , aur   "slack-desktop"
+    [ pac_  [ "jdk8-openjdk", "scala", "sbt", "cloc" ]
+    , aur_  [ "ammonite", "dbeaver", "intellij-idea-community-edition", "slack-desktop" ]
     , merge "files/gradle.properties" "~/.gradle/gradle.properties" -- TODO: use securefs for secret stuff, mount and have a withSecureFs :: FileName -> (FileName -> IO a) -> IO a that mounts a partition in /tmp and runs the function passig the tmp dir
     ] ++
 
     -- ops
-    [ pac   "python2-pip"
-    , pac   "aws-cli"    , aur "aws-vault"
-    , pac   "docker",      pac "docker-compose"
+    [ pac_  [ "python2-pip", "aws-cli", "docker", "docker-compose" ]
+    , aur   "aws-vault"
     , cmd   "sudo pip2 install fabric==1.13.1"
     , merge "files/aws_config" "~/.aws/config"
     ] ++
 
     -- desktop
-    [ aur   "ttf-iosevka"
-    , pac   "xmobar"
+    [ pac_  [ "xmonad", "xmonad-contrib", "xmobar", "rofi", "feh", "trayer" ]
+    , aur_  [ "ttf-iosevka"
+            , "stlarch_icons" -- icons installed in /usr/share/icons/stlarch_ico
+            , "rofi-dmenu" -- themes in /usr/share/rofi/
+            ]
     , merge "files/xmobarrc" "~/.xmobarrc"
-
-    , pac   "xmonad", pac "xmonad-contrib"
     , merge "files/xmonad.hs" "~/.xmonad/xmonad.hs"
-
-    , pac   "rofi", aur "rofi-dmenu" -- themes in /usr/share/rofi/
     , merge "files/rofi_config.rasi" "~/.config/rofi/config.rasi"
-
-    , pac   "feh"
-    , pac   "trayer"
-    , aur   "stlarch_icons" -- icons installed in /usr/share/icons/stlarch_ico
     ] ++
 
     -- ssd
     [ pac   "util-linux", cmd "sudo systemctl enable fstrim.timer" ] ++
 
     -- apps
-    [ pac "nemo",  pac "vlc", pac "smplayer"
-    , pac "android-udev"
-
-    , aur "jdownloader2", aur "cclive", aur "youtube-dl"
-    , aur "caffeine-ng"
-    , aur "dukto"
+    [ pac_  [ "nemo", "vlc", "smplayer", "android-udev" ]
+    , aur_  [ "jdownloader2", "cclive", "youtube-dl", "caffeine-ng", "dukto" ]
     ] ++
 
     -- quirks

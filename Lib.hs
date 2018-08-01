@@ -1,4 +1,4 @@
-module Lib (aur, pac, merge, forHost, cmd) where
+module Lib (aur, aur_, pac, pac_, merge, forHost, cmd) where
 
 import Plan (Plan, unless, flatten, when, always)
 import System.Directory as Dir
@@ -20,10 +20,16 @@ aur pkg = unless (isInstalled pkg) $
   putStrLn ("Installing " ++ pkg)
   >> run "trizen" ["-S", pkg, "--needed"]
 
+aur_ :: [String] -> Plan
+aur_ pkgs = flatten (fmap aur pkgs)
+
 pac :: String -> Plan
 pac pkg = unless (isInstalled pkg) $
   putStrLn ("Installing " ++ pkg)
   >> run "sudo" ["pacman", "-S", pkg, "--needed"]
+
+pac_ :: [String] -> Plan
+pac_ pkgs = flatten (fmap pac pkgs)
 
 mergeTool :: String
 mergeTool = "meld"
