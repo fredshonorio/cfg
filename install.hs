@@ -7,18 +7,27 @@
 
 {-# LANGUAGE OverloadedStrings #-}
 import Lib
+import Exec
 import Plan
 import System.Environment
 import Xfce
+import Data.Functor
+import Control.Arrow
+import qualified Data.Text as T
 -- TODO: vera.merge_to_dir("~/SpiderOak Hive/ssh", "~/.ssh/", force)
 -- TODO: ensure line in file: for what?
--- TODO: chsh -s zsh, after installing zsh
 -- TODO: install bbastov/prelude unless ~/.emacs.d/ exists
 -- TODO: modprobe blacklist
 -- TOOD: stop using pass, use files in a securefs mount
 
 -- Utilities that might not need to be permantly installed
 -- soundconverter -> converts audio files between formats
+
+currentShellIs :: T.Text -> IO Bool
+currentShellIs sh = (T.strip >>> (==) sh) <$> runReadShell "getent passwd $LOGNAME | cut -d: -f7"
+
+pip2Installed :: String -> IO Bool
+pip2Installed pkg = runShellIsSuccess $ "pip2 show " ++ pkg
 
 main :: IO ()
 main = do
@@ -37,6 +46,7 @@ main = do
     , merge "files/zshrc" "~/.zshrc"
     , merge "files/profile" "~/.profile"    
     , merge "files/sakura.conf" "~/.config/sakura/sakura.conf"
+    , whenNot (currentShellIs "/bin/zsh") $ cmd "chsh -s /bin/zsh"
 
     -- git
     , pac_  [ "git", "gitg", "tk", "aspell-en", "meld" ]
@@ -56,7 +66,7 @@ main = do
     -- ops
     , pac_  [ "python2-pip", "aws-cli", "docker", "docker-compose" ]
     , aur   "aws-vault"
-    , cmd   "sudo pip2 install fabric==1.13.1"
+    , whenNot (pip2Installed "Fabric") $ cmd "sudo pip2 install fabric==1.13.1"
     , merge "files/aws_config" "~/.aws/config"
 
     -- desktop

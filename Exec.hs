@@ -1,4 +1,4 @@
-module Exec (run, runIsSuccess, runShellIsSuccess, runReadShell, runReadProc, onlyWhen, runShell) where
+module Exec (run, runIsSuccess, runShellIsSuccess, runReadShell, runReadShell_, runReadProc, onlyWhen, runShell) where
 
 import System.Process.Typed
 import GHC.IO.Exception (ExitCode(..))
@@ -35,6 +35,12 @@ runReadShell cmd =
   do
     (out, _) <- readProcess_ $ shell cmd
     return $ T.pack $ C.unpack out
+
+runReadShell_ :: String -> IO String
+runReadShell_ cmd =
+  do
+    (out, _) <- readProcess_ $ shell cmd
+    return $ T.unpack $ T.pack $ C.unpack out
 
 runReadProc :: String -> [String] -> IO T.Text
 runReadProc prog args =
