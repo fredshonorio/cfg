@@ -26,16 +26,12 @@ main = do
   force <- elem "--force" <$> getArgs
   runAll $
     [ aur   "google-chrome-beta", aur "firefox-beta-bin", aur "min-browser-bin"
-    , aur   "spotify"
-    , pac   "redshift"
+    , aur   "spotify", pac "redshift"
     , merge "files/unpushed" "~/.bin/unpushed"
     ] ++
 
     -- backup
-    [ pac   "veracrypt"
-    , aur   "securefs"
-    , pac   "pass"
-    ] ++
+    [ pac   "veracrypt", aur "securefs", pac "pass" ] ++
 
     -- shell
     [ aur   "powerline-fonts", aur "prezto-git"
@@ -49,15 +45,13 @@ main = do
     ] ++
 
     -- git
-    [ pac   "git", aur "git-cola" , pac "gitg"
+    [ pac   "git", aur "git-cola", pac "gitg"
     , pac   "tk" , pac "aspell-en", pac "meld"
     , merge "files/gitconfig" "~/.gitconfig"
     ] ++
 
     -- emacs
-    [ pac   "emacs"
-    , merge "files/emacs_prelude_personal.el" "~/.emacs.d/personal/personal.el"
-    ] ++
+    [ pac   "emacs", merge "files/emacs_prelude_personal.el" "~/.emacs.d/personal/personal.el" ] ++
 
     -- dev
     [ pac   "jdk8-openjdk"
@@ -69,7 +63,7 @@ main = do
     ] ++
 
     -- ops
-    [ pac   "python2-pip", pac "python-pip"
+    [ pac   "python2-pip"
     , pac   "aws-cli"    , aur "aws-vault"
     , pac   "docker",      pac "docker-compose"
     , cmd   "sudo pip2 install fabric==1.13.1"
@@ -93,13 +87,10 @@ main = do
     ] ++
 
     -- ssd
-    [ pac   "util-linux"
-    , cmd   "sudo systemctl enable fstrim.timer"
-    ] ++
+    [ pac   "util-linux", cmd "sudo systemctl enable fstrim.timer" ] ++
 
     -- apps
-    [ pac "nemo"
-    , pac "mpv", pac "vlc", pac "smplayer"
+    [ pac "nemo",  pac "vlc", pac "smplayer"
     , pac "android-udev"
 
     , aur "jdownloader2", aur "cclive", aur "youtube-dl"
@@ -109,11 +100,10 @@ main = do
 
     -- quirks
     [ forHost "liminal"
-      [ aur "powertop"
-      ]
+      [ aur "powertop" ]
+
     , forHost "hornet"
-      [ aur "atom-editor-bin"
-      ]
+      [ aur "atom-editor-bin" ]
     ] ++
 
     -- disable keyboard shortcuts
