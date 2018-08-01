@@ -19,6 +19,9 @@ import qualified Data.Text as T
 -- TODO: install bbastov/prelude unless ~/.emacs.d/ exists
 -- TODO: modprobe blacklist
 -- TOOD: stop using pass, use files in a securefs mount
+-- TODO: use securefs for secret stuff, mount and have a withSecureFs :: FileName -> (FileName -> IO a) -> IO a that mounts a partition in /tmp and runs the function passig the tmp dir
+--- gradle.properties
+--- .ssh
 
 -- Utilities that might not need to be permantly installed
 -- soundconverter -> converts audio files between formats
@@ -61,7 +64,7 @@ main = do
     -- dev
     , pac_  [ "jdk8-openjdk", "scala", "sbt", "cloc" ]
     , aur_  [ "ammonite", "dbeaver", "intellij-idea-community-edition", "slack-desktop" ]
-    , merge "files/gradle.properties" "~/.gradle/gradle.properties" -- TODO: use securefs for secret stuff, mount and have a withSecureFs :: FileName -> (FileName -> IO a) -> IO a that mounts a partition in /tmp and runs the function passig the tmp dir
+    , merge "files/gradle.properties" "~/.gradle/gradle.properties"
 
     -- ops
     , pac_  [ "python2-pip", "aws-cli", "docker", "docker-compose" ]
@@ -92,7 +95,7 @@ main = do
     , forHost "liminal" [ aur "powertop" ]
 
     -- disable keyboard shortcuts
-    , unsetKbShortcut "/commands/custom/<Alt>F7"     -- usually "move_window_key"  , conflicts with intellij
-    , unsetKbShortcut "/commands/custom/<Alt>F6"     -- usually "stick_window_key" , conflicts with intellij
-    , unsetKbShortcut "/commands/custom/<Alt>Insert" -- usually "add_workspace_key", conflicts with intellij
+    , unsetKbShortcut "/commands/custom/<Alt>F7"     -- move_window_key  , conflicts with intellij
+    , unsetKbShortcut "/commands/custom/<Alt>F6"     -- stick_window_key , conflicts with intellij
+    , unsetKbShortcut "/commands/custom/<Alt>Insert" -- add_workspace_key, conflicts with intellij
     ]
