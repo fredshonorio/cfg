@@ -15,6 +15,8 @@ import Xfce
 -- TODO: ensure app unninstaled
 -- TODO: chsh -s zsh, after installing zsh
 -- TODO: install bbastov/prelude unless ~/.emacs.d/ exists
+-- TODO: modprobe blacklist
+-- TODO: emoji support https://www.reddit.com/r/archlinux/comments/52k3t0/proper_color_emoji_support/d7l05nt/
 
 -- Utilities that might not need to be permantly installed
 -- soundconverter -> converts audio files between formats
@@ -79,7 +81,7 @@ main = do
     , pac   "xmobar"
     , merge "files/xmobarrc" "~/.xmobarrc"
 
-    , pac   "xmonad", pac "xmonad-contrib", aur "compton"
+    , pac   "xmonad", pac "xmonad-contrib"
     , merge "files/xmonad.hs" "~/.xmonad/xmonad.hs"
 
     , pac   "rofi", aur "rofi-dmenu" -- themes in /usr/share/rofi/
@@ -88,6 +90,11 @@ main = do
     , pac   "feh"
     , pac   "trayer"
     , aur   "stlarch_icons" -- icons installed in /usr/share/icons/stlarch_ico
+    ] ++
+
+    -- ssd
+    [ pac   "util-linux"
+    , cmd   "sudo systemctl enable fstrim.timer"
     ] ++
 
     -- apps
