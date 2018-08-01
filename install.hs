@@ -15,9 +15,7 @@ import Data.Functor
 import Control.Arrow
 import qualified Data.Text as T
 -- TODO: vera.merge_to_dir("~/SpiderOak Hive/ssh", "~/.ssh/", force)
--- TODO: ensure line in file: for what?
 -- TODO: install bbastov/prelude unless ~/.emacs.d/ exists
--- TODO: modprobe blacklist
 -- TOOD: stop using pass, use files in a securefs mount
 -- TODO: use securefs for secret stuff, mount and have a withSecureFs :: FileName -> (FileName -> IO a) -> IO a that mounts a partition in /tmp and runs the function passig the tmp dir
 --- gradle.properties
@@ -31,6 +29,15 @@ currentShellIs sh = (T.strip >>> (==) sh) <$> runReadShell "getent passwd $LOGNA
 
 pip2Installed :: String -> IO Bool
 pip2Installed pkg = runShellIsSuccess $ "pip2 show " ++ pkg
+
+lineIn :: String -> String -> IO Bool
+lineIn file part = (lines >>> any (== part)) <$> readFile file
+
+fileExists :: String -> IO Bool
+fileExists file = runShellIsSuccess $ "test -e " ++ file
+
+l_blacklist = "/etc/modprobe.d/blacklist-fred.conf"
+f_blacklist = "files/modprobe_blacklist.conf"
 
 main :: IO ()
 main = do
@@ -50,6 +57,12 @@ main = do
     , merge "files/profile" "~/.profile"    
     , merge "files/sakura.conf" "~/.config/sakura/sakura.conf"
     , whenNot (currentShellIs "/bin/zsh") $ cmd "chsh -s /bin/zsh"
+
+    -- modprobe
+    , whenNot (fileExists l_blacklist)
+      $ cmd $ "sudo install -m 644 -D " ++ f_blacklist ++ " "  ++ l_blacklist -- create file and dir tree with permissions
+    , whenNot (runShellIsSuccess $ "diff " ++ l_blacklist ++ " " ++ f_blacklist)
+      $ cmd $ "gksu meld " ++ l_blacklist ++ " " ++  f_blacklist
 
     -- git
     , pac_  [ "git", "gitg", "tk", "aspell-en", "meld" ]
