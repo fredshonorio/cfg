@@ -11,12 +11,10 @@ import Plan
 import System.Environment
 import Xfce
 -- TODO: vera.merge_to_dir("~/SpiderOak Hive/ssh", "~/.ssh/", force)
--- TODO: ensure line in file
--- TODO: ensure app unninstaled
+-- TODO: ensure line in file: for what?
 -- TODO: chsh -s zsh, after installing zsh
 -- TODO: install bbastov/prelude unless ~/.emacs.d/ exists
 -- TODO: modprobe blacklist
--- TODO: emoji support https://www.reddit.com/r/archlinux/comments/52k3t0/proper_color_emoji_support/d7l05nt/
 
 -- Utilities that might not need to be permantly installed
 -- soundconverter -> converts audio files between formats
@@ -66,12 +64,14 @@ main = do
     -- desktop
     [ pac_  [ "xmonad", "xmonad-contrib", "xmobar", "rofi", "feh", "trayer" ]
     , aur_  [ "ttf-iosevka"
+            , "noto-fonts-emoji"
             , "stlarch_icons" -- icons installed in /usr/share/icons/stlarch_ico
             , "rofi-dmenu" -- themes in /usr/share/rofi/
             ]
     , merge "files/xmobarrc" "~/.xmobarrc"
     , merge "files/xmonad.hs" "~/.xmonad/xmonad.hs"
     , merge "files/rofi_config.rasi" "~/.config/rofi/config.rasi"
+    , merge "files/fontconfig_emoji.conf" "~/.config/fontconfig/conf.d/01-emoji.conf"
     ] ++
 
     -- ssd
