@@ -1,0 +1,41 @@
+for now it seems that doing this is necessary for the basics to work
+
+
+```
+
+Mike Hart
+
+As an ArchLinux user, I was unable to get synergy to work with just this. I also had to define XAUTHORITY. To make this properly generic, I had to create my own service file.
+
+The following file is: /etc/systemd/system/synergy@myusername.service
+
+[Unit]
+Description=Synergy Service [multiuser fixed]
+After=network.target
+
+[Service]
+Type=simple
+Restart=on-abnormal
+RestartSec=0
+SyslogLevel=err
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/%i/.Xauthority
+ExecStart=/usr/bin/synergy-service
+
+[Install]
+WantedBy=multi-user.target
+
+Once this file is in place, enable it like so
+
+systemctl enable synergy@myusername.service
+
+Where "myusername" is the name of your home directory.
+
+```
+
+additionally, it seems that the service refuses to die (only when restarting/shutting down),
+adding this
+```
+TimeoutStopSec=5
+```
+to the `Service` section should be enough

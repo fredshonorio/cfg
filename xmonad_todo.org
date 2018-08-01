@@ -10,3 +10,4 @@ xfdesktop -> never
 ** keyboard > application shortcuts
 delete one xfce4-popup-whiskermenu (necessary to use windows key for xmonad)
 rebind another to ctrl+super L
+** uninstall xfdesktop
