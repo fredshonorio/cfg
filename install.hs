@@ -24,17 +24,23 @@ main = do
   force <- elem "--force" <$> getArgs
   runAll $
     [ aur   "google-chrome-beta", aur "firefox-beta-bin", aur "min-browser-bin"
-    , pac   "veracrypt"
     , aur   "spotify"
     , pac   "redshift"
     , merge "files/unpushed" "~/.bin/unpushed"
+    ] ++
+
+    -- backup
+    [ pac   "veracrypt"
+    , aur   "securefs"
+    , pac   "pass"
     ] ++
 
     -- shell
     [ aur   "powerline-fonts", aur "prezto-git"
     , merge "files/zshrc" "~/.zshrc"
     , merge "files/profile" "~/.profile"    
-    , aur   "z", pac "lsof", pac "htop", aur "entr", pac "pass"
+    , aur   "z", pac "lsof", pac "htop", aur "entr"
+    , pac   "bat" -- improved `cat`
 
     , pac   "sakura"
     , merge "files/sakura.conf" "~/.config/sakura/sakura.conf"
@@ -54,16 +60,17 @@ main = do
     -- dev
     [ pac   "jdk8-openjdk"
     , pac   "scala"       , pac "sbt"    , aur "ammonite"
-    , aur   "dbeaver"     , pac "cloc"   , aur "haroopad"
+    , aur   "dbeaver"     , pac "cloc"
     , aur   "intellij-idea-community-edition"
     , aur   "slack-desktop"
-    , merge "files/gradle.properties" "~/.gradle/gradle.properties"
+    , merge "files/gradle.properties" "~/.gradle/gradle.properties" -- TODO: use securefs for secret stuff, mount and have a withSecureFs :: FileName -> (FileName -> IO a) -> IO a that mounts a partition in /tmp and runs the function passig the tmp dir
     ] ++
 
     -- ops
     [ pac   "python2-pip", pac "python-pip"
-    , aur   "fabric",      pac "aws-cli"
+    , pac   "aws-cli"    , aur "aws-vault"
     , pac   "docker",      pac "docker-compose"
+    , cmd   "sudo pip2 install fabric==1.13.1"
     , merge "files/aws_config" "~/.aws/config"
     ] ++
 

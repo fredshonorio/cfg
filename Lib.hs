@@ -1,6 +1,6 @@
-module Lib (aur, pac, merge, forHost) where
+module Lib (aur, pac, merge, forHost, cmd) where
 
-import Plan (Plan, unless, flatten, when)
+import Plan (Plan, unless, flatten, when, always)
 import System.Directory as Dir
 import System.FilePath.Posix as Path
 import qualified Data.Text as T
@@ -11,6 +11,9 @@ import Vera
 expandUser is called in too many places
 I could either make expandUser pure or make Plan a monad/make it easy to compose with IO
 -}
+
+cmd :: String -> Plan
+cmd s = always $ runShell s
 
 aur :: String -> Plan
 aur pkg = unless (isInstalled pkg) $

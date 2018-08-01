@@ -82,7 +82,6 @@ wallpapers = "$HOME/SpiderOak\\ Hive/wallpapers/*"
 
 startup = setWMName "LG3D"                                          -- required for java apps
           >> spawnHere ("feh --randomize --bg-fill " ++ wallpapers) -- load random wallpaper
-          >> spawnHere "compton"                                    -- for transparency
 
 -- transparency for inactive windows
 transparencyHook = fadeInactiveLogHook 0.95 -- percent
