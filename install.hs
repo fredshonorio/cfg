@@ -98,7 +98,9 @@ main = do
     , merge "files/fontconfig_emoji.conf" "~/.config/fontconfig/conf.d/01-emoji.conf"
 
     -- ssd
-    , pac   "util-linux", cmd "sudo systemctl enable fstrim.timer"
+    , pac   "util-linux"
+    , whenNot (runShellIsSuccess "systemctl is-enabled fstrim.timer | grep enabled")
+      $ cmd "sudo systemctl enable fstrim.timer"
 
     -- apps
     , pac_  [ "nemo", "vlc", "smplayer", "android-udev" ]
